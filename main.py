@@ -1,6 +1,4 @@
 import random
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 class Graph:
     n = 0
     m = 0
@@ -75,6 +73,8 @@ def generatePMFormula(graph, formulaPath):
                 for e in edgeList:
                     f.write(repr(varMap[getEdgeString(e)]) + " ")
                 f.write("\n")
+            else:
+                f.write('false\n')
         # exact-one for ad-hoc color of each vertex
         f.write("c exact-one for ad-hoc color of each vertex\n")
         for i in range(1, graph.n + 1):
@@ -108,17 +108,18 @@ def PBEncoding(formulaPath, PBPath):
                 if split[0] == 'co':
                     for k in range(1, len(split)):
                         g.write("+1 x%d " % int(split[k]))
-                    g.write(" >= %d ;\n" % (graph.n/2) )
+                    g.write(" >= %d ;\n" % (graph.n / 2) )
                 if split[0] == 'im':
                     g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[4])))
                     g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[6])))
-
+                if split[0] == 'false':
+                    g.write("+1 x1 = 2 ;\n")
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     graph = Graph()
-    graph.readGraph('graph.txt')
-    graph.generateRandomGraph(20,0.05,3)
+    #graph.readGraph('graph.txt')
+    graph.generateRandomGraph(20,0.001,3)
     generatePMFormula(graph, "formula.txt")
     PBEncoding("formula.txt", "pb.txt")
     print(graph.edges)
