@@ -1,0 +1,19 @@
+c color constraints
+im 1 -> ( 9 & 12 ) 
+im 2 -> ( 10 & 14 ) 
+im 3 -> ( 10 & 18 ) 
+im 4 -> ( 11 & 14 ) 
+im 5 -> ( 11 & 18 ) 
+im 6 -> ( 14 & 17 ) 
+im 7 -> ( 14 & 19 ) 
+c exact-one edges for PM
+eo 1 2 3 
+eo 1 4 5 
+eo 2 4 6 7 
+eo 3 5 6 7 
+c exact-one for ad-hoc color of each vertex
+eo 8 9 10 
+eo 11 12 13 
+eo 14 15 16 
+eo 17 18 19 
+co 8 11 14 17 

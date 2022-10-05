@@ -2,16 +2,23 @@
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
 class Graph:
     n = 0
     m = 0
     d = 0
     edges = []
-    def init(self,n,m,d):
+
+    def init(self, n, m, d):
         self.n = n
         self.m = m
         self.d = d
+
+    def getAdjacentEdges(self, v):
+        edgeList = []
+        for e in self.edges:
+            if e[0] == v or e[1] == v: edgeList.append(e)
+        return edgeList
+
 
 def readGraph(filename):
     graph = Graph()
@@ -22,21 +29,87 @@ def readGraph(filename):
             if split[0] == "c":  continue
             if split[0] == "graph":
                 graph.init(int(split[1]), int(split[2]), int(split[3]))
+                continue
+            graph.edges.append([int(split[0]), int(split[1]), int(split[2]), int(split[3])])
+    return graph
 
 
+def allocateVar(map, string):
+    number = len(map) + 1
+    map[string] = number
 
 
+def getVCString(v, color):
+    return "vertex %x has color %x" % (v, color)
 
 
+def getEdgeString(e):
+    return "edge " + repr(e[0]) + " and " + repr(e[1]) + " with color " + repr(e[2]) + " and " + repr(e[3])
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def generatePMFormula(graph, formulaPath):
+    varMap = {}
+    for e in graph.edges:
+        allocateVar(varMap, getEdgeString(e))
+    for i in range(1, graph.n + 1):
+        for j in range(1, graph.d + 1):
+            allocateVar(varMap, getVCString(i, j))
+    print(varMap)
 
+    with open(formulaPath, 'w+') as f:
+        # perfect matching edges
+        f.write("c color constraints\n")
+        for e in graph.edges:
+            f.write("im %d -> ( %d & %d ) \n" % (
+                varMap[getEdgeString(e)], varMap[getVCString(e[0], e[2])], varMap[getVCString(e[1], e[3])]))
+        # exact-one edges
+        f.write("c exact-one edges for PM\n")
+        for i in range(1, graph.n + 1):
+            edgeList = graph.getAdjacentEdges(i)
+            if len(edgeList) > 0:
+                f.write("eo ")
+                for e in edgeList:
+                    f.write(repr(varMap[getEdgeString(e)]) + " ")
+                f.write("\n")
+        # exact-one for ad-hoc color of each vertex
+        f.write("c exact-one for ad-hoc color of each vertex\n")
+        for i in range(1, graph.n + 1):
+            f.write("eo ")
+            for j in range(1, graph.d+1):
+                f.write(repr(varMap[getVCString(i,j)]) + " ")
+            f.write('\n')
+        # symmetric function for vertex coloring
+        f.write("co ")
+        for i in range(1,graph.n + 1):
+            f.write(repr(varMap[getVCString(i, 1)]) + " ")
+        f.write('\n')
+
+def generateNEPMFormula(graph, formulaPath):
+    with open(formulaPath) as f:
+        pass
+
+def PBEncoding(formulaPath, PBPath):
+    with open(formulaPath) as f:
+        lines = f.readlines()
+        with open(PBPath,'w+') as g:
+            for line in lines:
+                split = line.split()
+                if split[0] == 'c': continue
+                if split[0] == 'eo':
+                    for k in range(1,len(split)):
+                        g.write("+1 x%d "%int(split[k]))
+                    g.write(" = 1 ;\n")
+                if split[0] == 'co':
+                    for k in range(1,len(split)):
+                        g.write("+1 x%d "%int(split[k]))
+                    g.write(" >= 1 ;\n")
+                if split[0] == 'im':
+                    g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]),int(split[4])))
+                    g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[6])))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    graph = readGraph('graph.txt')
+    generatePMFormula(graph, "formula.txt")
+    PBEncoding("formula.txt","pb.txt")
+    print(graph.edges)
