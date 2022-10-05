@@ -1,5 +1,4 @@
-# This is a sample Python script.
-
+import random
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 class Graph:
@@ -19,20 +18,25 @@ class Graph:
             if e[0] == v or e[1] == v: edgeList.append(e)
         return edgeList
 
+    def readGraph(self, filename):
+        with open(filename) as f:
+            lines = f.readlines()
+            for line in lines:
+                split = line.split()
+                if split[0] == "c":  continue
+                if split[0] == "graph":
+                    self.init(int(split[1]), int(split[2]), int(split[3]))
+                    continue
+                self.edges.append([int(split[0]), int(split[1]), int(split[2]), int(split[3])])
 
-def readGraph(filename):
-    graph = Graph()
-    with open(filename) as f:
-        lines = f.readlines()
-        for line in lines:
-            split = line.split()
-            if split[0] == "c":  continue
-            if split[0] == "graph":
-                graph.init(int(split[1]), int(split[2]), int(split[3]))
-                continue
-            graph.edges.append([int(split[0]), int(split[1]), int(split[2]), int(split[3])])
-    return graph
-
+    def generateRandomGraph(self, n, p, d):
+        for v in range(1,n+1):
+            for u in range(v+1, n+1):
+                for cv in range(1,d+1):
+                    for cu in range(1,d+1):
+                        if random.random() < p:
+                            self.edges.append([v,u,cv,cu])
+        self.init(n, len(self.edges), d)
 
 def allocateVar(map, string):
     number = len(map) + 1
@@ -75,41 +79,46 @@ def generatePMFormula(graph, formulaPath):
         f.write("c exact-one for ad-hoc color of each vertex\n")
         for i in range(1, graph.n + 1):
             f.write("eo ")
-            for j in range(1, graph.d+1):
-                f.write(repr(varMap[getVCString(i,j)]) + " ")
+            for j in range(1, graph.d + 1):
+                f.write(repr(varMap[getVCString(i, j)]) + " ")
             f.write('\n')
         # symmetric function for vertex coloring
         f.write("co ")
-        for i in range(1,graph.n + 1):
+        for i in range(1, graph.n + 1):
             f.write(repr(varMap[getVCString(i, 1)]) + " ")
         f.write('\n')
+
 
 def generateNEPMFormula(graph, formulaPath):
     with open(formulaPath) as f:
         pass
 
+
 def PBEncoding(formulaPath, PBPath):
     with open(formulaPath) as f:
         lines = f.readlines()
-        with open(PBPath,'w+') as g:
+        with open(PBPath, 'w+') as g:
             for line in lines:
                 split = line.split()
                 if split[0] == 'c': continue
                 if split[0] == 'eo':
-                    for k in range(1,len(split)):
-                        g.write("+1 x%d "%int(split[k]))
+                    for k in range(1, len(split)):
+                        g.write("+1 x%d " % int(split[k]))
                     g.write(" = 1 ;\n")
                 if split[0] == 'co':
-                    for k in range(1,len(split)):
-                        g.write("+1 x%d "%int(split[k]))
-                    g.write(" >= 1 ;\n")
+                    for k in range(1, len(split)):
+                        g.write("+1 x%d " % int(split[k]))
+                    g.write(" >= %d ;\n" % (graph.n/2) )
                 if split[0] == 'im':
-                    g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]),int(split[4])))
+                    g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[4])))
                     g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[6])))
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    graph = readGraph('graph.txt')
+    graph = Graph()
+    graph.readGraph('graph.txt')
+    graph.generateRandomGraph(20,0.05,3)
     generatePMFormula(graph, "formula.txt")
-    PBEncoding("formula.txt","pb.txt")
+    PBEncoding("formula.txt", "pb.txt")
     print(graph.edges)
