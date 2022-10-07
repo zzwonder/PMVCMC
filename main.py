@@ -110,7 +110,9 @@ def generateNEPMFormula(graph, formulaPath):
     varMap = {}
     for i in range(1, graph.n + 1):
         allocateVar(varMap,getTutteVariableString(i))
+    for i in range(1, graph.n + 1):
         allocateVar(varMap, getOddComponentString(i))
+    for i in range(1, graph.n + 1):
         for j in range(1,graph.n + 1):
             allocateVar(varMap, getConnectedComponentString(i,j))
     for e in graph.edges:
@@ -129,11 +131,11 @@ def generateNEPMFormula(graph, formulaPath):
                 f.write(repr(varMap[getVCString(i, j)]) + " ")
             f.write('\n')
         for e in graph.edges:
-            f.write("%d <-> ( ! %d & ! %d ) & ( %d & %d ) \n" % (varMap[getRestEdgeString(e)], varMap[getTutteVariableString(e[0])], varMap[getTutteVariableString(e[1])], varMap[getVCString(e[0], e[2])],
+            f.write("le %d <-> ( ! %d & ! %d ) & ( %d & %d ) \n" % (varMap[getRestEdgeString(e)], varMap[getTutteVariableString(e[0])], varMap[getTutteVariableString(e[1])], varMap[getVCString(e[0], e[2])],
                                                                varMap[getVCString(e[1],e[3])]))
         for e in graph.edges:
             for i in range(1,graph.n+1):
-                f.write("%d -> ( %d = %d )\n" % (varMap[getRestEdgeString(e)], varMap[getConnectedComponentString(e[0],i)], varMap[getConnectedComponentString(e[1],i)] ))
+                f.write("cc %d -> ( %d = %d )\n" % (varMap[getRestEdgeString(e)], varMap[getConnectedComponentString(e[0],i)], varMap[getConnectedComponentString(e[1],i)] ))
 
         for i in range(1, graph.n+1):
             f.write("x %d " % varMap[getOddComponentString(i)])
@@ -143,21 +145,19 @@ def generateNEPMFormula(graph, formulaPath):
 
         for i in range(1, graph.n+1):
             f.write('eo ')
-            for j in range(1, graph.n  + 1 ):
+            f.write('%d ' % varMap[getTutteVariableString(i)])
+            for j in range(1, graph.n + 1 ):
                 f.write("%d " % varMap[getConnectedComponentString(i,j)])
             f.write("\n")
 
         f.write('card ')
         for i in range(1, graph.n+1):
-            f.write("%d - %d " % (varMap[getOddComponentString(i)], varMap[getTutteVariableString(i)]))
-        f.write("> 0 ;\n")
+            f.write("%d -%d " % (varMap[getOddComponentString(i)], varMap[getTutteVariableString(i)]))
+        f.write(">= 1 ;\n")
+        return len(varMap)
 
 
-
-
-
-
-def PBEncoding(formulaPath, PBPath):
+def PBEncoding(formulaPath, PBPath, nv):
     with open(formulaPath) as f:
         lines = f.readlines()
         with open(PBPath, 'w+') as g:
@@ -177,13 +177,34 @@ def PBEncoding(formulaPath, PBPath):
                     g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[6])))
                 if split[0] == 'false':
                     g.write("+1 x1 = 2 ;\n")
+                if split[0] == 'x':
+                    g.write("* xor ")
+                    for k in range(1, len(split)):
+                        g.write("x%d " % int(split[k]))
+                    g.write("0 \n")
+                if split[0] == 'card':
+                    for k in range(1, len(split)-3):
+                        if int(split[k]) > 0:
+                            g.write("+1 x%s " % (split[k]))
+                        else:
+                            g.write("-1 x%d " % (-int(split[k])))
+                    g.write("%s %s %s\n" % (split[-3],split[-2],split[-1]))
+                if split[0] == 'cc':
+                    nv += 1
+                    g.write("-1 x%s +1 x%d >= 0\n" % (split[1], nv) )
+                    g.write("* xor x%s x%s x%d 1\n" % (split[4], split[6], nv))
+                if split[0] == 'le':
+                    g.write("+1 x%s +1 x%s +1 x%s -1 x%s -1 x%s >= -1 ;\n" % (split[1],split[5],split[8],split[12],split[14]))
+                    g.write("-4 x%s -1 x%s -1 x%s +1 x%s +1 x%s >= -2 ;\n" % (split[1],split[5],split[8],split[12],split[14]))
+    print("nv %d " % (nv))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     graph = Graph()
-    graph.readGraph('graph.txt')
+    #graph.readGraph('graph.txt')
+    graph.readGraph('bipartite.txt')
     #graph.generateRandomGraph(20,0.001,3)
     generatePMFormula(graph, "formula.txt")
-    generateNEPMFormula(graph, "nepmformula.txt")
-    PBEncoding("formula.txt", "pb.txt")
+    nv = generateNEPMFormula(graph, "nepmformula.txt")
+    PBEncoding("nepmformula.txt", "pb.txt", nv)
     print(graph.edges)
