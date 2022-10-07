@@ -170,6 +170,7 @@ def PBEncoding(formulaPath, PBPath, nv):
     with open(formulaPath) as f:
         lines = f.readlines()
         with open(PBPath, 'w+') as g:
+            g.write("* #variable= 1 #constraint= 1\n")
             for line in lines:
                 split = line.split()
                 if split[0] == 'c': continue
@@ -213,7 +214,7 @@ if __name__ == '__main__':
     #graph.readGraph('graph.txt')
     #graph.readGraph('bipartite.txt')
     #graph.generateRandomGraph(20,0.001,3)
-    graph.generateCompleteBipartiteGraph(17,18,1)
+    graph.generateCompleteBipartiteGraph(20,22,1)
 
     pmnv = generatePMFormula(graph, "formula.txt")
     nepmnv = generateNEPMFormula(graph, "nepmformula.txt")
