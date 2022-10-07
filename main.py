@@ -36,6 +36,14 @@ class Graph:
                             self.edges.append([v,u,cv,cu])
         self.init(n, len(self.edges), d)
 
+    def generateCompleteBipartiteGraph(self, n1, n2, d):
+        for v in range(1,n1+1):
+            for u in range(n1+1,n1 + n2 + 1):
+                for cv in range(1,d+1):
+                    for cu in range(1,d+1):
+                        self.edges.append([v,u,cv,cu])
+        self.init(n1+n2,len(self.edges),d)
+
 def allocateVar(map, string):
     number = len(map) + 1
     map[string] = number
@@ -103,6 +111,7 @@ def generatePMFormula(graph, formulaPath):
         for i in range(1, graph.n + 1):
             f.write(repr(varMap[getVCString(i, 1)]) + " ")
         f.write('\n')
+    return len(varMap)
 
 
 
@@ -202,9 +211,12 @@ def PBEncoding(formulaPath, PBPath, nv):
 if __name__ == '__main__':
     graph = Graph()
     #graph.readGraph('graph.txt')
-    graph.readGraph('bipartite.txt')
+    #graph.readGraph('bipartite.txt')
     #graph.generateRandomGraph(20,0.001,3)
-    generatePMFormula(graph, "formula.txt")
-    nv = generateNEPMFormula(graph, "nepmformula.txt")
-    PBEncoding("nepmformula.txt", "pb.txt", nv)
+    graph.generateCompleteBipartiteGraph(17,18,1)
+
+    pmnv = generatePMFormula(graph, "formula.txt")
+    nepmnv = generateNEPMFormula(graph, "nepmformula.txt")
+    PBEncoding("formula.txt", "pmpb.txt", pmnv)
+    PBEncoding("nepmformula.txt", "nepmpb.txt", nepmnv)
     print(graph.edges)
