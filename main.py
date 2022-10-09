@@ -44,18 +44,36 @@ class Graph:
                         self.edges.append([v,u,cv,cu])
         self.init(n1+n2,len(self.edges),d)
 
+    def generateCompleteGraph(self,n,d):
+        for v in range(1, n + 1):
+            for u in range(v+1, n + 1):
+                for cv in range(1, d + 1):
+                    for cu in range(1, d + 1):
+                        self.edges.append([u,v,cv,cu])
+        self.init(n,n*(n-1)/2*d*d, d)
+
 def allocateVar(map, string):
-    number = len(map) + 1
-    map[string] = number
+    if string in map:
+        return map[string]
+    else:
+        number = len(map) + 1
+        map[string] = number
+        return number
 
 
 def getVCString(v, color):
     return "vertex %x has color %x" % (v, color)
 
 
-def getEdgeString(e):
-    return "edge " + repr(e[0]) + " and " + repr(e[1]) + " with color " + repr(e[2]) + " and " + repr(e[3])
+def getPMEdgeString(e):
+    return "edge " + repr(e[0]) + " and " + repr(e[1]) + " with color " + repr(e[2]) + " and " + repr(e[3]) + " is in PM"
 
+def getEdgeFromString(s):
+    split = s.split()
+    return [int(split[1]), int(split[3]), int(split[6]), int(split[8])]
+
+def getEdgeString(e):
+    return "edge " + repr(e[0]) + " and " + repr(e[1]) + " with color " + repr(e[2]) + " and " + repr(e[3]) + " is in the graph"
 
 def getTutteVariableString(v):
     return "vertex %d is in Tutte Set" % v
@@ -72,11 +90,26 @@ def getConnectedComponentString(v,i):
 def getOddComponentString(i):
     return "component %d is an odd component" % i
 
+def getExtraVariableString(index):
+    return "an auxiliary variable with index %d" % index
 
-def generatePMFormula(graph, formulaPath):
+def generateGraphDiscoveryFormula(graph, PMFormulaPath, NEPMFormulaPath, PBXORPath):
     varMap = {}
     for e in graph.edges:
-        allocateVar(varMap, getEdgeString(e))
+        allocateVar(varMap,getEdgeString(e))
+    generatePMFormula(graph,PMFormulaPath,varMap)
+    generateNEPMFormula(graph,NEPMFormulaPath,varMap)
+    constraintList = ["* #variable= 1 #constraint= 1\n"]
+    PBEncoding(PMFormulaPath,varMap, constraintList)
+    PBEncoding(NEPMFormulaPath, varMap, constraintList)
+    constraintList[0] = "* #variable= %d #constraint= %d\n" % (len(varMap),len(constraintList) -1 )
+    with open(PBXORPath,'w+') as f:
+        for constraint in constraintList:
+            f.write(constraint)
+
+def generatePMFormula(graph, formulaPath, varMap):
+    for e in graph.edges:
+        allocateVar(varMap, getPMEdgeString(e))
     for i in range(1, graph.n + 1):
         for j in range(1, graph.d + 1):
             allocateVar(varMap, getVCString(i, j))
@@ -86,8 +119,10 @@ def generatePMFormula(graph, formulaPath):
         # perfect matching edges
         f.write("c color constraints\n")
         for e in graph.edges:
+            f.write("imply %d -> %d\n" % (varMap[getPMEdgeString(e)], varMap[getEdgeString(e)]))
+        for e in graph.edges:
             f.write("im %d -> ( %d & %d ) \n" % (
-                varMap[getEdgeString(e)], varMap[getVCString(e[0], e[2])], varMap[getVCString(e[1], e[3])]))
+                varMap[getPMEdgeString(e)], varMap[getVCString(e[0], e[2])], varMap[getVCString(e[1], e[3])]))
         # exact-one edges
         f.write("c exact-one edges for PM\n")
         for i in range(1, graph.n + 1):
@@ -95,7 +130,7 @@ def generatePMFormula(graph, formulaPath):
             if len(edgeList) > 0:
                 f.write("eo ")
                 for e in edgeList:
-                    f.write(repr(varMap[getEdgeString(e)]) + " ")
+                    f.write(repr(varMap[getPMEdgeString(e)]) + " ")
                 f.write("\n")
             else:
                 f.write('false\n')
@@ -107,16 +142,21 @@ def generatePMFormula(graph, formulaPath):
                 f.write(repr(varMap[getVCString(i, j)]) + " ")
             f.write('\n')
         # symmetric function for vertex coloring
-        f.write("co ")
-        for i in range(1, graph.n + 1):
-            f.write(repr(varMap[getVCString(i, 1)]) + " ")
-        f.write('\n')
+        # todo: NAE(vc(1,r),vc(2,r),...) for GHZ states
+        for j in range(1, graph.d + 1):
+            f.write("nae ")
+            for i in range(1,graph.n+1):
+                f.write("%d " % (varMap[getVCString(i,j)]))
+            f.write('\n')
+
+        #f.write("co ")
+        #for i in range(1, graph.n + 1):
+        #    f.write(repr(varMap[getVCString(i, 1)]) + " ")
+        #f.write('\n')
     return len(varMap)
 
 
-
-def generateNEPMFormula(graph, formulaPath):
-    varMap = {}
+def generateNEPMFormula(graph, formulaPath, varMap):
     for i in range(1, graph.n + 1):
         allocateVar(varMap,getTutteVariableString(i))
     for i in range(1, graph.n + 1):
@@ -125,7 +165,6 @@ def generateNEPMFormula(graph, formulaPath):
         for j in range(1,graph.n + 1):
             allocateVar(varMap, getConnectedComponentString(i,j))
     for e in graph.edges:
-        allocateVar(varMap, getEdgeString(e))
         allocateVar(varMap, getRestEdgeString(e))
     for i in range(1, graph.n + 1):
         for j in range(1, graph.d + 1):
@@ -134,6 +173,8 @@ def generateNEPMFormula(graph, formulaPath):
     with open(formulaPath, 'w+') as f:
         # exact-one for ad-hoc color of each vertex
         f.write("c exact-one for ad-hoc color of each vertex\n")
+        for e in graph.edges:
+            f.write("imply %d -> %d\n" % (varMap[getRestEdgeString(e)], varMap[getEdgeString(e)]))
         for i in range(1, graph.n + 1):
             f.write("eo ")
             for j in range(1, graph.d + 1):
@@ -163,50 +204,144 @@ def generateNEPMFormula(graph, formulaPath):
         for i in range(1, graph.n+1):
             f.write("%d -%d " % (varMap[getOddComponentString(i)], varMap[getTutteVariableString(i)]))
         f.write(">= 1 ;\n")
+
+        # todo: AE(vc(1,r),vc(2,r),...) for GHZ states
+        for j in range(1, graph.d + 1):
+            f.write("ae ") # ae = all-equal
+            for i in range(1, graph.n + 1):
+                f.write("%d " % (varMap[getVCString(i, j)]))
+            f.write('\n')
         return len(varMap)
 
-
-def PBEncoding(formulaPath, PBPath, nv):
+def PBEncoding(formulaPath, varMap, constraintList):
     with open(formulaPath) as f:
         lines = f.readlines()
-        with open(PBPath, 'w+') as g:
-            g.write("* #variable= 1 #constraint= 1\n")
-            for line in lines:
-                split = line.split()
-                if split[0] == 'c': continue
-                if split[0] == 'eo':
-                    for k in range(1, len(split)):
-                        g.write("+1 x%d " % int(split[k]))
-                    g.write(" = 1 ;\n")
-                if split[0] == 'co':
-                    for k in range(1, len(split)):
-                        g.write("+1 x%d " % int(split[k]))
-                    g.write(" >= %d ;\n" % (graph.n / 2) )
-                if split[0] == 'im':
-                    g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[4])))
-                    g.write("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[6])))
-                if split[0] == 'false':
-                    g.write("+1 x1 = 2 ;\n")
-                if split[0] == 'x':
-                    g.write("* xor ")
-                    for k in range(1, len(split)):
-                        g.write("x%d " % int(split[k]))
-                    g.write("0 \n")
-                if split[0] == 'card':
-                    for k in range(1, len(split)-3):
-                        if int(split[k]) > 0:
-                            g.write("+1 x%s " % (split[k]))
-                        else:
-                            g.write("-1 x%d " % (-int(split[k])))
-                    g.write("%s %s %s\n" % (split[-3],split[-2],split[-1]))
-                if split[0] == 'cc':
-                    nv += 1
-                    g.write("-1 x%s +1 x%d >= 0\n" % (split[1], nv) )
-                    g.write("* xor x%s x%s x%d 1\n" % (split[4], split[6], nv))
-                if split[0] == 'le':
-                    g.write("+1 x%s +1 x%s +1 x%s -1 x%s -1 x%s >= -1 ;\n" % (split[1],split[5],split[8],split[12],split[14]))
-                    g.write("-4 x%s -1 x%s -1 x%s +1 x%s +1 x%s >= -2 ;\n" % (split[1],split[5],split[8],split[12],split[14]))
-    print("nv %d " % (nv))
+        for line in lines:
+            split = line.split()
+            if split[0] == 'c': continue
+            if split[0] == 'eo':
+                string = ""
+                for k in range(1, len(split)):
+                    string += ("+1 x%d " % int(split[k]))
+                string += " = 1 ;\n"
+                constraintList.append(string)
+            if split[0] == 'co':
+                string = ""
+                for k in range(1, len(split)):
+                    string += ("+1 x%d " % int(split[k]))
+                string += (" >= %d ;\n" % (graph.n / 2) )
+                constraintList.append(string)
+            if split[0] == 'im':
+                constraintList.append("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[4])))
+                constraintList.append("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[6])))
+            if split[0] == 'imply':
+                constraintList.append("-1 x%d +1 x%d >= 0 ; \n" % (int(split[1]), int(split[3])))
+            if split[0] == 'false':
+                constraintList.append("+1 x1 = 2 ;\n")
+            if split[0] == 'x':
+                string = "* xor "
+                for k in range(1, len(split)):
+                    string +=("x%d " % int(split[k]))
+                string += "0 \n"
+                constraintList.append(string)
+            if split[0] == 'card':
+                string = ""
+                for k in range(1, len(split)-3):
+                    if int(split[k]) > 0:
+                        string += ("+1 x%s " % (split[k]))
+                    else:
+                        string += ("-1 x%d " % (-int(split[k])))
+                string += ("%s %s %s\n" % (split[-3],split[-2],split[-1]))
+                constraintList.append(string)
+            if split[0] == 'cc':
+                index = allocateVar(varMap, getExtraVariableString(len(varMap)))
+                constraintList.append("-1 x%s +1 x%d >= 0\n" % (split[1], index) )
+                constraintList.append("* xor x%s x%s x%d 1\n" % (split[4], split[6], index))
+            if split[0] == 'le':
+                constraintList.append("+1 x%s +1 x%s +1 x%s -1 x%s -1 x%s >= -1 ;\n" % (split[1],split[5],split[8],split[12],split[14]))
+                constraintList.append("-4 x%s -1 x%s -1 x%s +1 x%s +1 x%s >= -2 ;\n" % (split[1],split[5],split[8],split[12],split[14]))
+
+
+def checkNEPM(graph,NEPMFormulaPath="nepmpbxor.txt"): # check the nepm comdition for all legal states. if the extended graph with unassigned edges are true has no illegal PM, return true. otherwise return false.
+    varMap = {}
+    for e in graph.edges:
+        allocateVar(varMap,getEdgeString(e))
+    generateNEPMFormula(graph,NEPMFormulaPath,varMap)
+    constraintList = ["* #variable= 1 #constraint= 1\n"]
+    PBEncoding(NEPMFormulaPath, varMap, constraintList)
+    constraintList[0] = "* #variable= %d #constraint= %d\n" % (len(varMap),len(constraintList) -1 )
+    with open(NEPMFormulaPath,'w+') as f:
+        for constraint in constraintList:
+            f.write(constraint)
+    # todo: call libpb. if SAT, return False. otherwise return true
+    return False
+
+def checkPM(graph,PMFormulaPath="pmpbxor.txt"): # if the extended graph with unassigned edges are false has no proof of non-existence of PM, return true. Otherwise return true
+    varMap = {}
+    for e in graph.edges:
+        allocateVar(varMap, getEdgeString(e))
+    generatePMFormula(graph, PMFormulaPath, varMap)
+    constraintList = ["* #variable= 1 #constraint= 1\n"]
+    PBEncoding(PMFormulaPath, varMap, constraintList)
+    constraintList[0] = "* #variable= %d #constraint= %d\n" % (len(varMap), len(constraintList) - 1)
+    with open(PBXORPath, 'w+') as f:
+        for constraint in constraintList:
+            f.write(constraint)
+    # todo: call libpb. if SAT, return False. otherwise return true
+    return True
+
+def variableSelection(varList):
+    index = random.sample(range(len(varList)),1)[0]
+    v = varList[index]
+    varList.pop(index)
+    return v, False
+
+def stackToGraph(wholeGraph, n, d, edgeMap, variableStack, variablesLeft, extender): # if extender is true, all unassigned edges are assumed to present. otherwise all unassigned edges are absent
+    graph = Graph()
+    for s in variableStack:
+        if s[1]:
+            e = wholeGraph.edges[s[0]]
+            graph.edges.append(e)
+    if extender:
+        for v in variablesLeft:
+            e = wholeGraph.edges[v]
+            graph.edges.append(e)
+    graph.init(n,len(graph.edges),d)
+    return graph
+
+def DPLLGraphSearch():
+    # assign edges to variable set
+    n = 6
+    d = 3
+    wholeGraph = Graph()
+    wholeGraph.generateCompleteGraph(n,d)
+    edgeMap = {}
+    for e in wholeGraph.edges:
+        allocateVar(edgeMap, getPMEdgeString(e))
+    variableStack = []
+    variablesLeft = list(range(1,len(edgeMap) + 1))
+    while True:
+        #print(variablesLeft)
+        #print(variableStack)
+        nepmFlag = checkNEPM(stackToGraph(wholeGraph, n,d,edgeMap,variableStack,variablesLeft,True))
+        pmFlag = checkNEPM(stackToGraph(wholeGraph, n,d,edgeMap,variableStack,variablesLeft,False))
+        if nepmFlag == True and pmFlag == True:
+            if len(variablesLeft) == 0:
+                print("Graph found!")
+                break
+            else:
+                v, value = variableSelection(variablesLeft)
+                variableStack.append([v, value, False])
+        else:
+            while len(variableStack)>0 and variableStack[-1][2] == True:
+                v = variableStack.pop(-1)[0]
+                variablesLeft.append(v)
+            if len(variableStack) == 0:
+                print("Impossible")
+                break
+            else:
+                variableStack[-1][2] = True
+                variableStack[-1][1] = not variableStack[-1][1]
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -214,10 +349,8 @@ if __name__ == '__main__':
     #graph.readGraph('graph.txt')
     #graph.readGraph('bipartite.txt')
     #graph.generateRandomGraph(20,0.001,3)
-    graph.generateCompleteBipartiteGraph(20,22,1)
-
-    pmnv = generatePMFormula(graph, "formula.txt")
-    nepmnv = generateNEPMFormula(graph, "nepmformula.txt")
-    PBEncoding("formula.txt", "pmpb.txt", pmnv)
-    PBEncoding("nepmformula.txt", "nepmpb.txt", nepmnv)
-    print(graph.edges)
+    #graph.generateCompleteBipartiteGraph(20,22,1)
+    #graph.generateCompleteGraph(6,3)
+    #generateGraphDiscoveryFormula(graph,"pmformula.txt","nepmformula.txt","pbxor.txt")
+    #print(graph.edges)
+    DPLLGraphSearch()
