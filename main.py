@@ -1,9 +1,11 @@
 import random
+import os
 class Graph:
-    n = 0
-    m = 0
-    d = 0
-    edges = []
+    def __init__(self):
+        self.n = 0
+        self.m = 0
+        self.d = 0
+        self.edges = []
 
     def init(self, n, m, d):
         self.n = n
@@ -113,7 +115,7 @@ def generatePMFormula(graph, formulaPath, varMap):
     for i in range(1, graph.n + 1):
         for j in range(1, graph.d + 1):
             allocateVar(varMap, getVCString(i, j))
-    print(varMap)
+    #print(varMap)
 
     with open(formulaPath, 'w+') as f:
         # perfect matching edges
@@ -169,7 +171,7 @@ def generateNEPMFormula(graph, formulaPath, varMap):
     for i in range(1, graph.n + 1):
         for j in range(1, graph.d + 1):
             allocateVar(varMap, getVCString(i, j))
-    print(varMap)
+    #print(varMap)
     with open(formulaPath, 'w+') as f:
         # exact-one for ad-hoc color of each vertex
         f.write("c exact-one for ad-hoc color of each vertex\n")
@@ -260,9 +262,20 @@ def PBEncoding(formulaPath, varMap, constraintList):
             if split[0] == 'le':
                 constraintList.append("+1 x%s +1 x%s +1 x%s -1 x%s -1 x%s >= -1 ;\n" % (split[1],split[5],split[8],split[12],split[14]))
                 constraintList.append("-4 x%s -1 x%s -1 x%s +1 x%s +1 x%s >= -2 ;\n" % (split[1],split[5],split[8],split[12],split[14]))
-
-
-def checkNEPM(graph,NEPMFormulaPath="nepmpbxor.txt"): # check the nepm comdition for all legal states. if the extended graph with unassigned edges are true has no illegal PM, return true. otherwise return false.
+            if split[0] == 'nae':
+                stringpos = ""
+                stringneg = ""
+                for k in range(1,len(split)):
+                    stringpos += ("+1 x%s " % split[k] )
+                    stringpos += ("-1 x%s " % split[k] )
+                constraintList.append(stringpos + ">= 1 ;\n") # nae can be encoded into two cardinality constraitns
+                constraintList.append(stringneg + ">= " + repr(-len(split)+2) + " ;\n")
+            if split[0] == 'ae':
+                for k in range(1,len(split)-1):
+                    constraintList.append("* xor x%s x%s 0\n" % (split[k],split[k+1]))
+                        
+                
+def checkNEPM(graph,NEPMFormulaPath="nepmformula.txt", PBXORNEPMFormulaPath="pbxornepmformula.txt"): # check the nepm comdition for all legal states. if the extended graph with unassigned edges are true has no illegal PM, return true. otherwise return false.
     varMap = {}
     for e in graph.edges:
         allocateVar(varMap,getEdgeString(e))
@@ -270,13 +283,28 @@ def checkNEPM(graph,NEPMFormulaPath="nepmpbxor.txt"): # check the nepm comdition
     constraintList = ["* #variable= 1 #constraint= 1\n"]
     PBEncoding(NEPMFormulaPath, varMap, constraintList)
     constraintList[0] = "* #variable= %d #constraint= %d\n" % (len(varMap),len(constraintList) -1 )
-    with open(NEPMFormulaPath,'w+') as f:
+    with open(PBXORNEPMFormulaPath,'w+') as f:
         for constraint in constraintList:
             f.write(constraint)
+    cmd = '../../linpb/build/linpb %s > nepmres.txt' % PBXORNEPMFormulaPath
+    os.system(cmd)
     # todo: call libpb. if SAT, return False. otherwise return true
-    return False
+    return readLinpbRes("nepmres.txt")
 
-def checkPM(graph,PMFormulaPath="pmpbxor.txt"): # if the extended graph with unassigned edges are false has no proof of non-existence of PM, return true. Otherwise return true
+def readLinpbRes(resFile):
+    with open(resFile,'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            split = line.split()
+            if len(split) == 0: continue
+            if split[0] == 's':
+                if split[1] == 'UNSATISFIABLE': return True
+                elif split[1] == 'SATISFIABLE': return False
+        print("none")
+        exit(0)
+        
+
+def checkPM(graph,PMFormulaPath="pmformula.txt", PBXORPMFormulaPath="pbxorpmformula.txt"): # if the extended graph with unassigned edges are false has no proof of non-existence of PM, return true. Otherwise return true
     varMap = {}
     for e in graph.edges:
         allocateVar(varMap, getEdgeString(e))
@@ -284,35 +312,39 @@ def checkPM(graph,PMFormulaPath="pmpbxor.txt"): # if the extended graph with una
     constraintList = ["* #variable= 1 #constraint= 1\n"]
     PBEncoding(PMFormulaPath, varMap, constraintList)
     constraintList[0] = "* #variable= %d #constraint= %d\n" % (len(varMap), len(constraintList) - 1)
-    with open(PBXORPath, 'w+') as f:
+    with open(PBXORPMFormulaPath, 'w+') as f:
         for constraint in constraintList:
             f.write(constraint)
+    cmd = '../../linpb/build/linpb %s > pmres.txt' % PBXORPMFormulaPath
+    os.system(cmd)
     # todo: call libpb. if SAT, return False. otherwise return true
-    return True
+    return readLinpbRes("pmres.txt")    
 
 def variableSelection(varList):
     index = random.sample(range(len(varList)),1)[0]
     v = varList[index]
     varList.pop(index)
+    print('selected edge %d ' % v)
     return v, False
 
 def stackToGraph(wholeGraph, n, d, edgeMap, variableStack, variablesLeft, extender): # if extender is true, all unassigned edges are assumed to present. otherwise all unassigned edges are absent
     graph = Graph()
+    print("whole graph has %d edges " % len(wholeGraph.edges))
     for s in variableStack:
         if s[1]:
-            e = wholeGraph.edges[s[0]]
+            e = wholeGraph.edges[s[0]-1]
             graph.edges.append(e)
     if extender:
         for v in variablesLeft:
-            e = wholeGraph.edges[v]
+            e = wholeGraph.edges[v-1]
             graph.edges.append(e)
     graph.init(n,len(graph.edges),d)
     return graph
 
 def DPLLGraphSearch():
     # assign edges to variable set
-    n = 6
-    d = 3
+    n = 4
+    d = 2
     wholeGraph = Graph()
     wholeGraph.generateCompleteGraph(n,d)
     edgeMap = {}
@@ -321,13 +353,18 @@ def DPLLGraphSearch():
     variableStack = []
     variablesLeft = list(range(1,len(edgeMap) + 1))
     while True:
-        #print(variablesLeft)
-        #print(variableStack)
-        nepmFlag = checkNEPM(stackToGraph(wholeGraph, n,d,edgeMap,variableStack,variablesLeft,True))
-        pmFlag = checkNEPM(stackToGraph(wholeGraph, n,d,edgeMap,variableStack,variablesLeft,False))
+        print(variablesLeft)
+        print(variableStack)
+        nepmGraph = stackToGraph(wholeGraph, n,d,edgeMap,variableStack,variablesLeft,True)
+        pmGraph = stackToGraph(wholeGraph, n,d,edgeMap,variableStack,variablesLeft,False)
+        nepmFlag = checkNEPM(nepmGraph)
+        pmFlag = checkPM(pmGraph)
+        print("nepmFlag = %s pmFlag = %s" % (nepmFlag,pmFlag))
         if nepmFlag == True and pmFlag == True:
             if len(variablesLeft) == 0:
                 print("Graph found!")
+                print(nepmGraph.edges)
+                print(pmGraph.edges)
                 break
             else:
                 v, value = variableSelection(variablesLeft)

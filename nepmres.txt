@@ -1,0 +1,112 @@
+c LinPB
+c branch main
+c commit 2e86119
+13 + 25 + 41 =  true -- clash: 
+14 + 26 + 42 =  true -- clash: 
+15 + 27 + 43 =  true -- clash: 
+16 + 28 + 44 =  true -- clash: 
+17 + 21 + 45 =  true -- clash: 
+18 + 22 + 46 =  true -- clash: 
+19 + 23 + 47 =  true -- clash: 
+20 + 24 + 48 =  true -- clash: 
+13 + 25 + 49 =  true -- clash: 
+14 + 26 + 50 =  true -- clash: 
+15 + 27 + 51 =  true -- clash: 
+16 + 28 + 52 =  true -- clash: 
+17 + 21 + 53 =  true -- clash: 
+18 + 22 + 54 =  true -- clash: 
+19 + 23 + 55 =  true -- clash: 
+20 + 24 + 56 =  true -- clash: 
+9 + 13 + 17 + 21 + 25 =  false -- clash: 
+10 + 14 + 18 + 22 + 26 =  false -- clash: 
+11 + 15 + 19 + 23 + 27 =  false -- clash: 
+12 + 16 + 20 + 24 + 28 =  false -- clash: 
+33 + 35 =  false -- clash: 
+35 + 37 =  false -- clash: 
+37 + 39 =  false -- clash: 
+34 + 36 =  false -- clash: 
+36 + 38 =  false -- clash: 
+38 + 40 =  false -- clash: 
+c #variables 56 #constraints 57
+45 + 53 =  false -- clash: 
+46 + 54 =  false -- clash: 
+47 + 55 =  false -- clash: 
+48 + 56 =  false -- clash: 
+c cpu time 0.002592 s
+c deterministic time 11924 1.19e+04
+c optimization time 3.1e-05 s
+c total solve time 0.001735 s
+c propagation time 0.000564 s
+c conflict analysis time 0.000422 s
+c gauss time 0.00024 s
+c propagations 977
+c resolve steps 337
+c decisions 162
+c conflicts 78
+c restarts 1
+c inprocessing phases 0
+c input clauses 56
+c input cardinalities 5
+c input general constraints 4
+c input average constraint length 2.83
+c input average constraint degree 1.43
+c learned clauses 60
+c learned cardinalities 2
+c learned general constraints 15
+c learned average constraint length 9.77
+c learned average constraint degree 1.94
+c watched constraints 0
+c counting constraints 19
+c gcd simplifications 1
+c detected cardinalities 0
+c weakened non-implied lits 115
+c weakened non-implying lits 0
+c original variables 56
+c clausal propagations 361
+c cardinality propagations 199
+c watched propagations 0
+c counting propagations 36
+c watch lookups 2219
+c watch backjump lookups 493
+c watch checks 3051
+c propagation checks 1399
+c constraint additions 2458
+c trail pops 1164
+c formula constraints 65
+c learned constraints 77
+c bound constraints 0
+c encountered formula constraints 165
+c encountered learned constraints 105
+c encountered bound constraints 0
+c LP total time 0 s
+c LP solve time 0 s
+c LP constraints added 0
+c LP constraints removed 0
+c LP pivots internal 0
+c LP pivots root 0
+c LP calls 0
+c LP optimalities 0
+c LP no pivot count 0
+c LP infeasibilities 0
+c LP valid Farkas constraints 0
+c LP learned Farkas constraints 0
+c LP basis resets 0
+c LP cycling count 0
+c LP singular count 0
+c LP no primal count 0
+c LP no farkas count 0
+c LP other issue count 0
+c LP Gomory cuts 0
+c LP learned cuts 0
+c LP deleted cuts 0
+c LP encountered Gomory constraints 0
+c LP encountered Farkas constraints 0
+c LP encountered learned Farkas constraints 0
+s UNSATISFIABLE
+c [g 0] truth-find prop checks  : 475
+c [g 0] -> of which prop        :    57 %
+c [g 0] -> of which confl       :   3.6 %
+c [g 0] elim called             : 79
+c [g 0] ---> which lead to prop :    22 %
+c [g 0] ---> which lead to confl:     0 %
+c [g 0] size: 20    x 36   
