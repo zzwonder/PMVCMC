@@ -1,21 +1,30 @@
 c color constraints
-imply 5 -> 1
-imply 6 -> 2
-imply 7 -> 3
-imply 8 -> 4
-im 5 -> ( 16 & 10 ) 
-im 6 -> ( 13 & 11 ) 
-im 7 -> ( 15 & 9 ) 
-im 8 -> ( 14 & 12 ) 
+im 1 -> ( 26 & 19 ) 
+im 2 -> ( 28 & 25 ) 
+im 3 -> ( 26 & 25 ) 
+im 4 -> ( 24 & 17 ) 
+im 5 -> ( 23 & 19 ) 
+im 6 -> ( 24 & 18 ) 
+im 7 -> ( 23 & 17 ) 
+im 8 -> ( 27 & 23 ) 
+im 9 -> ( 27 & 24 ) 
+im 10 -> ( 28 & 23 ) 
+im 11 -> ( 24 & 19 ) 
+im 12 -> ( 26 & 23 ) 
+im 13 -> ( 26 & 17 ) 
+im 14 -> ( 28 & 17 ) 
+im 15 -> ( 25 & 19 ) 
+im 16 -> ( 27 & 18 ) 
 c exact-one edges for PM
-eo 5 7 
-eo 6 8 
-eo 6 8 
-eo 5 7 
+eo 1 4 5 6 7 11 13 14 15 16 
+false
+eo 2 3 4 5 6 7 8 9 10 11 12 15 
+eo 1 2 3 8 9 10 12 13 14 16 
 c exact-one for ad-hoc color of each vertex
-eo 9 10 
-eo 11 12 
-eo 13 14 
-eo 15 16 
-nae 9 11 13 15 
-nae 10 12 14 16 
+eo 17 18 19 
+eo 20 21 22 
+eo 23 24 25 
+eo 26 27 28 
+nae 17 20 23 26 
+nae 18 21 24 27 
+nae 19 22 25 28 

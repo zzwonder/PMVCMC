@@ -1,82 +1,165 @@
 c LinPB
 c branch main
 c commit 2e86119
-13 + 25 + 41 =  true -- clash: 
-14 + 26 + 42 =  true -- clash: 
-15 + 27 + 43 =  true -- clash: 
-16 + 28 + 44 =  true -- clash: 
-17 + 21 + 45 =  true -- clash: 
-18 + 22 + 46 =  true -- clash: 
-19 + 23 + 47 =  true -- clash: 
-20 + 24 + 48 =  true -- clash: 
-13 + 25 + 49 =  true -- clash: 
-14 + 26 + 50 =  true -- clash: 
-15 + 27 + 51 =  true -- clash: 
-16 + 28 + 52 =  true -- clash: 
-17 + 21 + 53 =  true -- clash: 
-18 + 22 + 54 =  true -- clash: 
-19 + 23 + 55 =  true -- clash: 
-20 + 24 + 56 =  true -- clash: 
-9 + 13 + 17 + 21 + 25 =  false -- clash: 
-10 + 14 + 18 + 22 + 26 =  false -- clash: 
-11 + 15 + 19 + 23 + 27 =  false -- clash: 
-12 + 16 + 20 + 24 + 28 =  false -- clash: 
-33 + 35 =  false -- clash: 
-35 + 37 =  false -- clash: 
-37 + 39 =  false -- clash: 
-34 + 36 =  false -- clash: 
-36 + 38 =  false -- clash: 
-38 + 40 =  false -- clash: 
-c #variables 56 #constraints 57
-45 + 53 =  false -- clash: 
-46 + 54 =  false -- clash: 
-47 + 55 =  false -- clash: 
-48 + 56 =  false -- clash: 
-c cpu time 0.002592 s
-c deterministic time 11924 1.19e+04
-c optimization time 3.1e-05 s
-c total solve time 0.001735 s
-c propagation time 0.000564 s
-c conflict analysis time 0.000422 s
-c gauss time 0.00024 s
-c propagations 977
-c resolve steps 337
-c decisions 162
-c conflicts 78
-c restarts 1
+9 + 21 + 60 =  true -- clash: 
+10 + 22 + 61 =  true -- clash: 
+11 + 23 + 62 =  true -- clash: 
+12 + 24 + 63 =  true -- clash: 
+17 + 21 + 64 =  true -- clash: 
+18 + 22 + 65 =  true -- clash: 
+19 + 23 + 66 =  true -- clash: 
+20 + 24 + 67 =  true -- clash: 
+17 + 21 + 68 =  true -- clash: 
+18 + 22 + 69 =  true -- clash: 
+19 + 23 + 70 =  true -- clash: 
+20 + 24 + 71 =  true -- clash: 
+9 + 17 + 72 =  true -- clash: 
+10 + 18 + 73 =  true -- clash: 
+11 + 19 + 74 =  true -- clash: 
+12 + 20 + 75 =  true -- clash: 
+9 + 17 + 76 =  true -- clash: 
+10 + 18 + 77 =  true -- clash: 
+11 + 19 + 78 =  true -- clash: 
+12 + 20 + 79 =  true -- clash: 
+9 + 17 + 80 =  true -- clash: 
+10 + 18 + 81 =  true -- clash: 
+11 + 19 + 82 =  true -- clash: 
+12 + 20 + 83 =  true -- clash: 
+9 + 17 + 84 =  true -- clash: 
+10 + 18 + 85 =  true -- clash: 
+11 + 19 + 86 =  true -- clash: 
+12 + 20 + 87 =  true -- clash: 
+17 + 21 + 88 =  true -- clash: 
+18 + 22 + 89 =  true -- clash: 
+19 + 23 + 90 =  true -- clash: 
+20 + 24 + 91 =  true -- clash: 
+17 + 21 + 92 =  true -- clash: 
+18 + 22 + 93 =  true -- clash: 
+19 + 23 + 94 =  true -- clash: 
+20 + 24 + 95 =  true -- clash: 
+17 + 21 + 96 =  true -- clash: 
+18 + 22 + 97 =  true -- clash: 
+19 + 23 + 98 =  true -- clash: 
+20 + 24 + 99 =  true -- clash: 
+9 + 17 + 100 =  true -- clash: 
+10 + 18 + 101 =  true -- clash: 
+11 + 19 + 102 =  true -- clash: 
+12 + 20 + 103 =  true -- clash: 
+17 + 21 + 104 =  true -- clash: 
+18 + 22 + 105 =  true -- clash: 
+19 + 23 + 106 =  true -- clash: 
+20 + 24 + 107 =  true -- clash: 
+9 + 21 + 108 =  true -- clash: 
+10 + 22 + 109 =  true -- clash: 
+11 + 23 + 110 =  true -- clash: 
+12 + 24 + 111 =  true -- clash: 
+9 + 21 + 112 =  true -- clash: 
+10 + 22 + 113 =  true -- clash: 
+11 + 23 + 114 =  true -- clash: 
+12 + 24 + 115 =  true -- clash: 
+9 + 17 + 116 =  true -- clash: 
+10 + 18 + 117 =  true -- clash: 
+11 + 19 + 118 =  true -- clash: 
+12 + 20 + 119 =  true -- clash: 
+9 + 21 + 120 =  true -- clash: 
+10 + 22 + 121 =  true -- clash: 
+11 + 23 + 122 =  true -- clash: 
+12 + 24 + 123 =  true -- clash: 
+13 + 21 + 124 =  true -- clash: 
+14 + 22 + 125 =  true -- clash: 
+15 + 23 + 126 =  true -- clash: 
+16 + 24 + 127 =  true -- clash: 
+13 + 21 + 128 =  true -- clash: 
+14 + 22 + 129 =  true -- clash: 
+15 + 23 + 130 =  true -- clash: 
+16 + 24 + 131 =  true -- clash: 
+9 + 13 + 132 =  true -- clash: 
+10 + 14 + 133 =  true -- clash: 
+11 + 15 + 134 =  true -- clash: 
+12 + 16 + 135 =  true -- clash: 
+13 + 17 + 136 =  true -- clash: 
+14 + 18 + 137 =  true -- clash: 
+15 + 19 + 138 =  true -- clash: 
+16 + 20 + 139 =  true -- clash: 
+9 + 21 + 140 =  true -- clash: 
+10 + 22 + 141 =  true -- clash: 
+11 + 23 + 142 =  true -- clash: 
+12 + 24 + 143 =  true -- clash: 
+9 + 13 + 144 =  true -- clash: 
+10 + 14 + 145 =  true -- clash: 
+11 + 15 + 146 =  true -- clash: 
+12 + 16 + 147 =  true -- clash: 
+13 + 17 + 148 =  true -- clash: 
+14 + 18 + 149 =  true -- clash: 
+15 + 19 + 150 =  true -- clash: 
+16 + 20 + 151 =  true -- clash: 
+5 + 9 + 13 + 17 + 21 =  false -- clash: 
+6 + 10 + 14 + 18 + 22 =  false -- clash: 
+7 + 11 + 15 + 19 + 23 =  false -- clash: 
+8 + 12 + 16 + 20 + 24 =  false -- clash: 
+48 + 51 =  false -- clash: 
+51 + 54 =  false -- clash: 
+54 + 57 =  false -- clash: 
+49 + 52 =  false -- clash: 
+52 + 55 =  false -- clash: 
+55 + 58 =  false -- clash: 
+50 + 53 =  false -- clash: 
+53 + 56 =  false -- clash: 
+56 + 59 =  false -- clash: 
+c #variables 151 #constraints 173
+132 + 144 =  false -- clash: 
+133 + 145 =  false -- clash: 
+134 + 146 =  false -- clash: 
+135 + 147 =  false -- clash: 
+136 + 148 =  false -- clash: 
+137 + 149 =  false -- clash: 
+138 + 150 =  false -- clash: 
+139 + 151 =  false -- clash: 
+c cpu time 0.00389 s
+c deterministic time 52080 5.21e+04
+c optimization time 2.4e-05 s
+c total solve time 0.002753 s
+c propagation time 0.000937 s
+c conflict analysis time 0.000831 s
+c gauss time 0.000448 s
+c propagations 6566
+c resolve steps 1251
+c decisions 262
+c conflicts 144
+c restarts 2
 c inprocessing phases 0
-c input clauses 56
-c input cardinalities 5
-c input general constraints 4
-c input average constraint length 2.83
-c input average constraint degree 1.43
-c learned clauses 60
-c learned cardinalities 2
-c learned general constraints 15
-c learned average constraint length 9.77
-c learned average constraint degree 1.94
-c watched constraints 0
-c counting constraints 19
-c gcd simplifications 1
+c input clauses 157
+c input cardinalities 9
+c input general constraints 23
+c input average constraint length 2.93
+c input average constraint degree 1.47
+c learned clauses 121
+c learned cardinalities 3
+c learned general constraints 19
+c learned average constraint length 8.87
+c learned average constraint degree 1.67
+c watched constraints 3
+c counting constraints 39
+c gcd simplifications 0
 c detected cardinalities 0
-c weakened non-implied lits 115
+c weakened non-implied lits 208
 c weakened non-implying lits 0
-c original variables 56
-c clausal propagations 361
-c cardinality propagations 199
-c watched propagations 0
-c counting propagations 36
-c watch lookups 2219
-c watch backjump lookups 493
-c watch checks 3051
-c propagation checks 1399
-c constraint additions 2458
-c trail pops 1164
-c formula constraints 65
-c learned constraints 77
+c original variables 151
+c clausal propagations 2908
+c cardinality propagations 478
+c watched propagations 1
+c counting propagations 522
+c watch lookups 11685
+c watch backjump lookups 3276
+c watch checks 9647
+c propagation checks 7683
+c constraint additions 6124
+c trail pops 6836
+c formula constraints 189
+c learned constraints 143
 c bound constraints 0
-c encountered formula constraints 165
-c encountered learned constraints 105
+c encountered formula constraints 509
+c encountered learned constraints 263
 c encountered bound constraints 0
 c LP total time 0 s
 c LP solve time 0 s
@@ -103,10 +186,10 @@ c LP encountered Gomory constraints 0
 c LP encountered Farkas constraints 0
 c LP encountered learned Farkas constraints 0
 s UNSATISFIABLE
-c [g 0] truth-find prop checks  : 475
-c [g 0] -> of which prop        :    57 %
-c [g 0] -> of which confl       :   3.6 %
-c [g 0] elim called             : 79
-c [g 0] ---> which lead to prop :    22 %
+c [g 0] truth-find prop checks  : 3214
+c [g 0] -> of which prop        :    69 %
+c [g 0] -> of which confl       :  0.96 %
+c [g 0] elim called             : 91
+c [g 0] ---> which lead to prop : 3.2e+02 %
 c [g 0] ---> which lead to confl:     0 %
-c [g 0] size: 20    x 36   
+c [g 0] size: 96    x 112  
