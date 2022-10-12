@@ -1,0 +1,75 @@
+c LinPB
+c branch main
+c commit 2e86119
+c #variables 180 #constraints 385
+c cpu time 0.009595 s
+c deterministic time 195330 1.95e+05
+c optimization time 2.1e-05 s
+c total solve time 0.008535 s
+c propagation time 0.003333 s
+c conflict analysis time 0.003321 s
+c gauss time 0.000362 s
+c propagations 13416
+c resolve steps 5766
+c decisions 715
+c conflicts 413
+c restarts 4
+c inprocessing phases 0
+c input clauses 367
+c input cardinalities 18
+c input general constraints 0
+c input average constraint length 3.07
+c input average constraint degree 1.14
+c learned clauses 400
+c learned cardinalities 2
+c learned general constraints 10
+c learned average constraint length 9.96
+c learned average constraint degree 1.24
+c watched constraints 8
+c counting constraints 2
+c gcd simplifications 3
+c detected cardinalities 0
+c weakened non-implied lits 1546
+c weakened non-implying lits 5
+c original variables 180
+c clausal propagations 10082
+c cardinality propagations 2883
+c watched propagations 25
+c counting propagations 10
+c watch lookups 43739
+c watch backjump lookups 772
+c watch checks 70546
+c propagation checks 27558
+c constraint additions 24112
+c trail pops 14471
+c formula constraints 385
+c learned constraints 412
+c bound constraints 0
+c encountered formula constraints 5506
+c encountered learned constraints 673
+c encountered bound constraints 0
+c LP total time 0 s
+c LP solve time 0 s
+c LP constraints added 0
+c LP constraints removed 0
+c LP pivots internal 0
+c LP pivots root 0
+c LP calls 0
+c LP optimalities 0
+c LP no pivot count 0
+c LP infeasibilities 0
+c LP valid Farkas constraints 0
+c LP learned Farkas constraints 0
+c LP basis resets 0
+c LP cycling count 0
+c LP singular count 0
+c LP no primal count 0
+c LP no farkas count 0
+c LP other issue count 0
+c LP Gomory cuts 0
+c LP learned cuts 0
+c LP deleted cuts 0
+c LP encountered Gomory constraints 0
+c LP encountered Farkas constraints 0
+c LP encountered learned Farkas constraints 0
+s UNSATISFIABLE

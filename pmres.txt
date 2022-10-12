@@ -1,0 +1,76 @@
+c LinPB
+c branch main
+c commit 2e86119
+c #variables 27 #constraints 45
+c cpu time 0.000158 s
+c deterministic time 486 4.86e+02
+c optimization time 0 s
+c total solve time 0 s
+c propagation time 7e-06 s
+c conflict analysis time 0 s
+c gauss time 0 s
+c propagations 73
+c resolve steps 22
+c decisions 3
+c conflicts 2
+c restarts 1
+c inprocessing phases 0
+c input clauses 33
+c input cardinalities 12
+c input general constraints 0
+c input average constraint length 2.80
+c input average constraint degree 1.27
+c learned clauses 2
+c learned cardinalities 0
+c learned general constraints 0
+c learned average constraint length 1.50
+c learned average constraint degree 1.00
+c watched constraints 0
+c counting constraints 0
+c gcd simplifications 0
+c detected cardinalities 0
+c weakened non-implied lits 5
+c weakened non-implying lits 0
+c original variables 27
+c clausal propagations 26
+c cardinality propagations 45
+c watched propagations 0
+c counting propagations 0
+c watch lookups 99
+c watch backjump lookups 0
+c watch checks 49
+c propagation checks 128
+c constraint additions 66
+c trail pops 67
+c formula constraints 45
+c learned constraints 2
+c bound constraints 0
+c encountered formula constraints 24
+c encountered learned constraints 0
+c encountered bound constraints 0
+c LP total time 0 s
+c LP solve time 0 s
+c LP constraints added 0
+c LP constraints removed 0
+c LP pivots internal 0
+c LP pivots root 0
+c LP calls 0
+c LP optimalities 0
+c LP no pivot count 0
+c LP infeasibilities 0
+c LP valid Farkas constraints 0
+c LP learned Farkas constraints 0
+c LP basis resets 0
+c LP cycling count 0
+c LP singular count 0
+c LP no primal count 0
+c LP no farkas count 0
+c LP other issue count 0
+c LP Gomory cuts 0
+c LP learned cuts 0
+c LP deleted cuts 0
+c LP encountered Gomory constraints 0
+c LP encountered Farkas constraints 0
+c LP encountered learned Farkas constraints 0
+s SATISFIABLE
+v x1 -x2 -x3 -x4 -x5 -x6 x7 x8 -x9 -x10 x11 -x12 -x13 x14 -x15 -x16 -x17 x18 x19 -x20 -x21 x22 -x23 -x24 -x25 -x26 x27
