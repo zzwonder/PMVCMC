@@ -1,158 +1,767 @@
 c LinPB
 c branch main
 c commit 2e86119
-13 + 19 + 76 =  true -- clash: 
-14 + 20 + 77 =  true -- clash: 
-15 + 21 + 78 =  true -- clash: 
-16 + 22 + 79 =  true -- clash: 
-17 + 23 + 80 =  true -- clash: 
-18 + 24 + 81 =  true -- clash: 
-13 + 25 + 82 =  true -- clash: 
-14 + 26 + 83 =  true -- clash: 
-15 + 27 + 84 =  true -- clash: 
-16 + 28 + 85 =  true -- clash: 
-17 + 29 + 86 =  true -- clash: 
-18 + 30 + 87 =  true -- clash: 
-13 + 31 + 88 =  true -- clash: 
-14 + 32 + 89 =  true -- clash: 
-15 + 33 + 90 =  true -- clash: 
-16 + 34 + 91 =  true -- clash: 
-17 + 35 + 92 =  true -- clash: 
-18 + 36 + 93 =  true -- clash: 
-19 + 37 + 94 =  true -- clash: 
-20 + 38 + 95 =  true -- clash: 
-21 + 39 + 96 =  true -- clash: 
-22 + 40 + 97 =  true -- clash: 
-23 + 41 + 98 =  true -- clash: 
-24 + 42 + 99 =  true -- clash: 
-19 + 43 + 100 =  true -- clash: 
-20 + 44 + 101 =  true -- clash: 
-21 + 45 + 102 =  true -- clash: 
-22 + 46 + 103 =  true -- clash: 
-23 + 47 + 104 =  true -- clash: 
-24 + 48 + 105 =  true -- clash: 
-25 + 31 + 106 =  true -- clash: 
-26 + 32 + 107 =  true -- clash: 
-27 + 33 + 108 =  true -- clash: 
-28 + 34 + 109 =  true -- clash: 
-29 + 35 + 110 =  true -- clash: 
-30 + 36 + 111 =  true -- clash: 
-25 + 43 + 112 =  true -- clash: 
-26 + 44 + 113 =  true -- clash: 
-27 + 45 + 114 =  true -- clash: 
-28 + 46 + 115 =  true -- clash: 
-29 + 47 + 116 =  true -- clash: 
-30 + 48 + 117 =  true -- clash: 
-31 + 37 + 118 =  true -- clash: 
-32 + 38 + 119 =  true -- clash: 
-33 + 39 + 120 =  true -- clash: 
-34 + 40 + 121 =  true -- clash: 
-35 + 41 + 122 =  true -- clash: 
-36 + 42 + 123 =  true -- clash: 
-37 + 43 + 124 =  true -- clash: 
-38 + 44 + 125 =  true -- clash: 
-39 + 45 + 126 =  true -- clash: 
-40 + 46 + 127 =  true -- clash: 
-41 + 47 + 128 =  true -- clash: 
-42 + 48 + 129 =  true -- clash: 
-7 + 13 + 19 + 25 + 31 + 37 + 43 =  false -- clash: 
-8 + 14 + 20 + 26 + 32 + 38 + 44 =  false -- clash: 
-9 + 15 + 21 + 27 + 33 + 39 + 45 =  false -- clash: 
-10 + 16 + 22 + 28 + 34 + 40 + 46 =  false -- clash: 
-11 + 17 + 23 + 29 + 35 + 41 + 47 =  false -- clash: 
-12 + 18 + 24 + 30 + 36 + 42 + 48 =  false -- clash: 
-58 + 61 =  false -- clash: 
-61 + 64 =  false -- clash: 
-64 + 67 =  false -- clash: 
-67 + 70 =  false -- clash: 
-70 + 73 =  false -- clash: 
-59 + 62 =  false -- clash: 
-62 + 65 =  false -- clash: 
-65 + 68 =  false -- clash: 
-68 + 71 =  false -- clash: 
-71 + 74 =  false -- clash: 
-60 + 63 =  false -- clash: 
-63 + 66 =  false -- clash: 
-66 + 69 =  false -- clash: 
-69 + 72 =  false -- clash: 
-72 + 75 =  false -- clash: 
-c #variables 129 #constraints 127
-c #Conflicts:       1000 | #Constraints:       1812
-c cpu time 0.035546 s
-c deterministic time 1213435 1.21e+06
-c optimization time 1.9e-05 s
-c total solve time 0.0352 s
-c propagation time 0.014464 s
-c conflict analysis time 0.011014 s
-c gauss time 0.003341 s
-c propagations 47828
-c resolve steps 12939
-c decisions 2419
-c conflicts 1216
-c restarts 8
-c inprocessing phases 0
-c input clauses 105
-c input cardinalities 13
-c input general constraints 9
-c input average constraint length 3.07
-c input average constraint degree 1.54
-c learned clauses 950
-c learned cardinalities 39
-c learned general constraints 226
-c learned average constraint length 16.05
-c learned average constraint degree 2.96
-c watched constraints 95
-c counting constraints 140
-c gcd simplifications 2
-c detected cardinalities 2
-c weakened non-implied lits 5415
-c weakened non-implying lits 0
-c original variables 129
-c clausal propagations 32681
-c cardinality propagations 7236
-c watched propagations 213
-c counting propagations 3149
-c watch lookups 366279
-c watch backjump lookups 165671
-c watch checks 375830
-c propagation checks 122785
-c constraint additions 81353
-c trail pops 51269
-c formula constraints 127
-c learned constraints 1215
-c bound constraints 0
-c encountered formula constraints 6005
-c encountered learned constraints 3559
-c encountered bound constraints 0
-c LP total time 0 s
-c LP solve time 0 s
-c LP constraints added 0
-c LP constraints removed 0
-c LP pivots internal 0
-c LP pivots root 0
-c LP calls 0
-c LP optimalities 0
-c LP no pivot count 0
-c LP infeasibilities 0
-c LP valid Farkas constraints 0
-c LP learned Farkas constraints 0
-c LP basis resets 0
-c LP cycling count 0
-c LP singular count 0
-c LP no primal count 0
-c LP no farkas count 0
-c LP other issue count 0
-c LP Gomory cuts 0
-c LP learned cuts 0
-c LP deleted cuts 0
-c LP encountered Gomory constraints 0
-c LP encountered Farkas constraints 0
-c LP encountered learned Farkas constraints 0
-s UNSATISFIABLE
-c [g 0] truth-find prop checks  : 9625
-c [g 0] -> of which prop        :    27 %
-c [g 0] -> of which confl       :  0.72 %
-c [g 0] elim called             : 1386
-c [g 0] ---> which lead to prop :    29 %
-c [g 0] ---> which lead to confl:   1.6 %
-c [g 0] size: 60    x 96   
+21 + 31 + 193 =  true -- clash: 
+22 + 32 + 194 =  true -- clash: 
+23 + 33 + 195 =  true -- clash: 
+24 + 34 + 196 =  true -- clash: 
+25 + 35 + 197 =  true -- clash: 
+26 + 36 + 198 =  true -- clash: 
+27 + 37 + 199 =  true -- clash: 
+28 + 38 + 200 =  true -- clash: 
+29 + 39 + 201 =  true -- clash: 
+30 + 40 + 202 =  true -- clash: 
+21 + 41 + 203 =  true -- clash: 
+22 + 42 + 204 =  true -- clash: 
+23 + 43 + 205 =  true -- clash: 
+24 + 44 + 206 =  true -- clash: 
+25 + 45 + 207 =  true -- clash: 
+26 + 46 + 208 =  true -- clash: 
+27 + 47 + 209 =  true -- clash: 
+28 + 48 + 210 =  true -- clash: 
+29 + 49 + 211 =  true -- clash: 
+30 + 50 + 212 =  true -- clash: 
+21 + 61 + 213 =  true -- clash: 
+22 + 62 + 214 =  true -- clash: 
+23 + 63 + 215 =  true -- clash: 
+24 + 64 + 216 =  true -- clash: 
+25 + 65 + 217 =  true -- clash: 
+26 + 66 + 218 =  true -- clash: 
+27 + 67 + 219 =  true -- clash: 
+28 + 68 + 220 =  true -- clash: 
+29 + 69 + 221 =  true -- clash: 
+30 + 70 + 222 =  true -- clash: 
+21 + 81 + 223 =  true -- clash: 
+22 + 82 + 224 =  true -- clash: 
+23 + 83 + 225 =  true -- clash: 
+24 + 84 + 226 =  true -- clash: 
+25 + 85 + 227 =  true -- clash: 
+26 + 86 + 228 =  true -- clash: 
+27 + 87 + 229 =  true -- clash: 
+28 + 88 + 230 =  true -- clash: 
+29 + 89 + 231 =  true -- clash: 
+30 + 90 + 232 =  true -- clash: 
+21 + 111 + 233 =  true -- clash: 
+22 + 112 + 234 =  true -- clash: 
+23 + 113 + 235 =  true -- clash: 
+24 + 114 + 236 =  true -- clash: 
+25 + 115 + 237 =  true -- clash: 
+26 + 116 + 238 =  true -- clash: 
+27 + 117 + 239 =  true -- clash: 
+28 + 118 + 240 =  true -- clash: 
+29 + 119 + 241 =  true -- clash: 
+30 + 120 + 242 =  true -- clash: 
+21 + 111 + 243 =  true -- clash: 
+22 + 112 + 244 =  true -- clash: 
+23 + 113 + 245 =  true -- clash: 
+24 + 114 + 246 =  true -- clash: 
+25 + 115 + 247 =  true -- clash: 
+26 + 116 + 248 =  true -- clash: 
+27 + 117 + 249 =  true -- clash: 
+28 + 118 + 250 =  true -- clash: 
+29 + 119 + 251 =  true -- clash: 
+30 + 120 + 252 =  true -- clash: 
+21 + 111 + 253 =  true -- clash: 
+22 + 112 + 254 =  true -- clash: 
+23 + 113 + 255 =  true -- clash: 
+24 + 114 + 256 =  true -- clash: 
+25 + 115 + 257 =  true -- clash: 
+26 + 116 + 258 =  true -- clash: 
+27 + 117 + 259 =  true -- clash: 
+28 + 118 + 260 =  true -- clash: 
+29 + 119 + 261 =  true -- clash: 
+30 + 120 + 262 =  true -- clash: 
+21 + 111 + 263 =  true -- clash: 
+22 + 112 + 264 =  true -- clash: 
+23 + 113 + 265 =  true -- clash: 
+24 + 114 + 266 =  true -- clash: 
+25 + 115 + 267 =  true -- clash: 
+26 + 116 + 268 =  true -- clash: 
+27 + 117 + 269 =  true -- clash: 
+28 + 118 + 270 =  true -- clash: 
+29 + 119 + 271 =  true -- clash: 
+30 + 120 + 272 =  true -- clash: 
+31 + 41 + 273 =  true -- clash: 
+32 + 42 + 274 =  true -- clash: 
+33 + 43 + 275 =  true -- clash: 
+34 + 44 + 276 =  true -- clash: 
+35 + 45 + 277 =  true -- clash: 
+36 + 46 + 278 =  true -- clash: 
+37 + 47 + 279 =  true -- clash: 
+38 + 48 + 280 =  true -- clash: 
+39 + 49 + 281 =  true -- clash: 
+40 + 50 + 282 =  true -- clash: 
+31 + 61 + 283 =  true -- clash: 
+32 + 62 + 284 =  true -- clash: 
+33 + 63 + 285 =  true -- clash: 
+34 + 64 + 286 =  true -- clash: 
+35 + 65 + 287 =  true -- clash: 
+36 + 66 + 288 =  true -- clash: 
+37 + 67 + 289 =  true -- clash: 
+38 + 68 + 290 =  true -- clash: 
+39 + 69 + 291 =  true -- clash: 
+40 + 70 + 292 =  true -- clash: 
+31 + 81 + 293 =  true -- clash: 
+32 + 82 + 294 =  true -- clash: 
+33 + 83 + 295 =  true -- clash: 
+34 + 84 + 296 =  true -- clash: 
+35 + 85 + 297 =  true -- clash: 
+36 + 86 + 298 =  true -- clash: 
+37 + 87 + 299 =  true -- clash: 
+38 + 88 + 300 =  true -- clash: 
+39 + 89 + 301 =  true -- clash: 
+40 + 90 + 302 =  true -- clash: 
+31 + 101 + 303 =  true -- clash: 
+32 + 102 + 304 =  true -- clash: 
+33 + 103 + 305 =  true -- clash: 
+34 + 104 + 306 =  true -- clash: 
+35 + 105 + 307 =  true -- clash: 
+36 + 106 + 308 =  true -- clash: 
+37 + 107 + 309 =  true -- clash: 
+38 + 108 + 310 =  true -- clash: 
+39 + 109 + 311 =  true -- clash: 
+40 + 110 + 312 =  true -- clash: 
+31 + 111 + 313 =  true -- clash: 
+32 + 112 + 314 =  true -- clash: 
+33 + 113 + 315 =  true -- clash: 
+34 + 114 + 316 =  true -- clash: 
+35 + 115 + 317 =  true -- clash: 
+36 + 116 + 318 =  true -- clash: 
+37 + 117 + 319 =  true -- clash: 
+38 + 118 + 320 =  true -- clash: 
+39 + 119 + 321 =  true -- clash: 
+40 + 120 + 322 =  true -- clash: 
+31 + 111 + 323 =  true -- clash: 
+32 + 112 + 324 =  true -- clash: 
+33 + 113 + 325 =  true -- clash: 
+34 + 114 + 326 =  true -- clash: 
+35 + 115 + 327 =  true -- clash: 
+36 + 116 + 328 =  true -- clash: 
+37 + 117 + 329 =  true -- clash: 
+38 + 118 + 330 =  true -- clash: 
+39 + 119 + 331 =  true -- clash: 
+40 + 120 + 332 =  true -- clash: 
+41 + 51 + 333 =  true -- clash: 
+42 + 52 + 334 =  true -- clash: 
+43 + 53 + 335 =  true -- clash: 
+44 + 54 + 336 =  true -- clash: 
+45 + 55 + 337 =  true -- clash: 
+46 + 56 + 338 =  true -- clash: 
+47 + 57 + 339 =  true -- clash: 
+48 + 58 + 340 =  true -- clash: 
+49 + 59 + 341 =  true -- clash: 
+50 + 60 + 342 =  true -- clash: 
+41 + 51 + 343 =  true -- clash: 
+42 + 52 + 344 =  true -- clash: 
+43 + 53 + 345 =  true -- clash: 
+44 + 54 + 346 =  true -- clash: 
+45 + 55 + 347 =  true -- clash: 
+46 + 56 + 348 =  true -- clash: 
+47 + 57 + 349 =  true -- clash: 
+48 + 58 + 350 =  true -- clash: 
+49 + 59 + 351 =  true -- clash: 
+50 + 60 + 352 =  true -- clash: 
+41 + 71 + 353 =  true -- clash: 
+42 + 72 + 354 =  true -- clash: 
+43 + 73 + 355 =  true -- clash: 
+44 + 74 + 356 =  true -- clash: 
+45 + 75 + 357 =  true -- clash: 
+46 + 76 + 358 =  true -- clash: 
+47 + 77 + 359 =  true -- clash: 
+48 + 78 + 360 =  true -- clash: 
+49 + 79 + 361 =  true -- clash: 
+50 + 80 + 362 =  true -- clash: 
+41 + 71 + 363 =  true -- clash: 
+42 + 72 + 364 =  true -- clash: 
+43 + 73 + 365 =  true -- clash: 
+44 + 74 + 366 =  true -- clash: 
+45 + 75 + 367 =  true -- clash: 
+46 + 76 + 368 =  true -- clash: 
+47 + 77 + 369 =  true -- clash: 
+48 + 78 + 370 =  true -- clash: 
+49 + 79 + 371 =  true -- clash: 
+50 + 80 + 372 =  true -- clash: 
+51 + 61 + 373 =  true -- clash: 
+52 + 62 + 374 =  true -- clash: 
+53 + 63 + 375 =  true -- clash: 
+54 + 64 + 376 =  true -- clash: 
+55 + 65 + 377 =  true -- clash: 
+56 + 66 + 378 =  true -- clash: 
+57 + 67 + 379 =  true -- clash: 
+58 + 68 + 380 =  true -- clash: 
+59 + 69 + 381 =  true -- clash: 
+60 + 70 + 382 =  true -- clash: 
+51 + 61 + 383 =  true -- clash: 
+52 + 62 + 384 =  true -- clash: 
+53 + 63 + 385 =  true -- clash: 
+54 + 64 + 386 =  true -- clash: 
+55 + 65 + 387 =  true -- clash: 
+56 + 66 + 388 =  true -- clash: 
+57 + 67 + 389 =  true -- clash: 
+58 + 68 + 390 =  true -- clash: 
+59 + 69 + 391 =  true -- clash: 
+60 + 70 + 392 =  true -- clash: 
+51 + 71 + 393 =  true -- clash: 
+52 + 72 + 394 =  true -- clash: 
+53 + 73 + 395 =  true -- clash: 
+54 + 74 + 396 =  true -- clash: 
+55 + 75 + 397 =  true -- clash: 
+56 + 76 + 398 =  true -- clash: 
+57 + 77 + 399 =  true -- clash: 
+58 + 78 + 400 =  true -- clash: 
+59 + 79 + 401 =  true -- clash: 
+60 + 80 + 402 =  true -- clash: 
+51 + 71 + 403 =  true -- clash: 
+52 + 72 + 404 =  true -- clash: 
+53 + 73 + 405 =  true -- clash: 
+54 + 74 + 406 =  true -- clash: 
+55 + 75 + 407 =  true -- clash: 
+56 + 76 + 408 =  true -- clash: 
+57 + 77 + 409 =  true -- clash: 
+58 + 78 + 410 =  true -- clash: 
+59 + 79 + 411 =  true -- clash: 
+60 + 80 + 412 =  true -- clash: 
+51 + 91 + 413 =  true -- clash: 
+52 + 92 + 414 =  true -- clash: 
+53 + 93 + 415 =  true -- clash: 
+54 + 94 + 416 =  true -- clash: 
+55 + 95 + 417 =  true -- clash: 
+56 + 96 + 418 =  true -- clash: 
+57 + 97 + 419 =  true -- clash: 
+58 + 98 + 420 =  true -- clash: 
+59 + 99 + 421 =  true -- clash: 
+60 + 100 + 422 =  true -- clash: 
+51 + 91 + 423 =  true -- clash: 
+52 + 92 + 424 =  true -- clash: 
+53 + 93 + 425 =  true -- clash: 
+54 + 94 + 426 =  true -- clash: 
+55 + 95 + 427 =  true -- clash: 
+56 + 96 + 428 =  true -- clash: 
+57 + 97 + 429 =  true -- clash: 
+58 + 98 + 430 =  true -- clash: 
+59 + 99 + 431 =  true -- clash: 
+60 + 100 + 432 =  true -- clash: 
+51 + 91 + 433 =  true -- clash: 
+52 + 92 + 434 =  true -- clash: 
+53 + 93 + 435 =  true -- clash: 
+54 + 94 + 436 =  true -- clash: 
+55 + 95 + 437 =  true -- clash: 
+56 + 96 + 438 =  true -- clash: 
+57 + 97 + 439 =  true -- clash: 
+58 + 98 + 440 =  true -- clash: 
+59 + 99 + 441 =  true -- clash: 
+60 + 100 + 442 =  true -- clash: 
+61 + 71 + 443 =  true -- clash: 
+62 + 72 + 444 =  true -- clash: 
+63 + 73 + 445 =  true -- clash: 
+64 + 74 + 446 =  true -- clash: 
+65 + 75 + 447 =  true -- clash: 
+66 + 76 + 448 =  true -- clash: 
+67 + 77 + 449 =  true -- clash: 
+68 + 78 + 450 =  true -- clash: 
+69 + 79 + 451 =  true -- clash: 
+70 + 80 + 452 =  true -- clash: 
+61 + 71 + 453 =  true -- clash: 
+62 + 72 + 454 =  true -- clash: 
+63 + 73 + 455 =  true -- clash: 
+64 + 74 + 456 =  true -- clash: 
+65 + 75 + 457 =  true -- clash: 
+66 + 76 + 458 =  true -- clash: 
+67 + 77 + 459 =  true -- clash: 
+68 + 78 + 460 =  true -- clash: 
+69 + 79 + 461 =  true -- clash: 
+70 + 80 + 462 =  true -- clash: 
+61 + 91 + 463 =  true -- clash: 
+62 + 92 + 464 =  true -- clash: 
+63 + 93 + 465 =  true -- clash: 
+64 + 94 + 466 =  true -- clash: 
+65 + 95 + 467 =  true -- clash: 
+66 + 96 + 468 =  true -- clash: 
+67 + 97 + 469 =  true -- clash: 
+68 + 98 + 470 =  true -- clash: 
+69 + 99 + 471 =  true -- clash: 
+70 + 100 + 472 =  true -- clash: 
+71 + 111 + 473 =  true -- clash: 
+72 + 112 + 474 =  true -- clash: 
+73 + 113 + 475 =  true -- clash: 
+74 + 114 + 476 =  true -- clash: 
+75 + 115 + 477 =  true -- clash: 
+76 + 116 + 478 =  true -- clash: 
+77 + 117 + 479 =  true -- clash: 
+78 + 118 + 480 =  true -- clash: 
+79 + 119 + 481 =  true -- clash: 
+80 + 120 + 482 =  true -- clash: 
+81 + 101 + 483 =  true -- clash: 
+82 + 102 + 484 =  true -- clash: 
+83 + 103 + 485 =  true -- clash: 
+84 + 104 + 486 =  true -- clash: 
+85 + 105 + 487 =  true -- clash: 
+86 + 106 + 488 =  true -- clash: 
+87 + 107 + 489 =  true -- clash: 
+88 + 108 + 490 =  true -- clash: 
+89 + 109 + 491 =  true -- clash: 
+90 + 110 + 492 =  true -- clash: 
+81 + 101 + 493 =  true -- clash: 
+82 + 102 + 494 =  true -- clash: 
+83 + 103 + 495 =  true -- clash: 
+84 + 104 + 496 =  true -- clash: 
+85 + 105 + 497 =  true -- clash: 
+86 + 106 + 498 =  true -- clash: 
+87 + 107 + 499 =  true -- clash: 
+88 + 108 + 500 =  true -- clash: 
+89 + 109 + 501 =  true -- clash: 
+90 + 110 + 502 =  true -- clash: 
+81 + 101 + 503 =  true -- clash: 
+82 + 102 + 504 =  true -- clash: 
+83 + 103 + 505 =  true -- clash: 
+84 + 104 + 506 =  true -- clash: 
+85 + 105 + 507 =  true -- clash: 
+86 + 106 + 508 =  true -- clash: 
+87 + 107 + 509 =  true -- clash: 
+88 + 108 + 510 =  true -- clash: 
+89 + 109 + 511 =  true -- clash: 
+90 + 110 + 512 =  true -- clash: 
+11 + 21 + 31 + 41 + 51 + 61 + 71 + 81 + 91 + 101 + 111 =  false -- clash: 
+12 + 22 + 32 + 42 + 52 + 62 + 72 + 82 + 92 + 102 + 112 =  false -- clash: 
+13 + 23 + 33 + 43 + 53 + 63 + 73 + 83 + 93 + 103 + 113 =  false -- clash: 
+14 + 24 + 34 + 44 + 54 + 64 + 74 + 84 + 94 + 104 + 114 =  false -- clash: 
+15 + 25 + 35 + 45 + 55 + 65 + 75 + 85 + 95 + 105 + 115 =  false -- clash: 
+16 + 26 + 36 + 46 + 56 + 66 + 76 + 86 + 96 + 106 + 116 =  false -- clash: 
+17 + 27 + 37 + 47 + 57 + 67 + 77 + 87 + 97 + 107 + 117 =  false -- clash: 
+18 + 28 + 38 + 48 + 58 + 68 + 78 + 88 + 98 + 108 + 118 =  false -- clash: 
+19 + 29 + 39 + 49 + 59 + 69 + 79 + 89 + 99 + 109 + 119 =  false -- clash: 
+20 + 30 + 40 + 50 + 60 + 70 + 80 + 90 + 100 + 110 + 120 =  false -- clash: 
+153 + 157 =  false -- clash: 
+157 + 161 =  false -- clash: 
+161 + 165 =  false -- clash: 
+165 + 169 =  false -- clash: 
+169 + 173 =  false -- clash: 
+173 + 177 =  false -- clash: 
+177 + 181 =  false -- clash: 
+181 + 185 =  false -- clash: 
+185 + 189 =  false -- clash: 
+154 + 158 =  false -- clash: 
+158 + 162 =  false -- clash: 
+162 + 166 =  false -- clash: 
+166 + 170 =  false -- clash: 
+170 + 174 =  false -- clash: 
+174 + 178 =  false -- clash: 
+178 + 182 =  false -- clash: 
+182 + 186 =  false -- clash: 
+186 + 190 =  false -- clash: 
+155 + 159 =  false -- clash: 
+159 + 163 =  false -- clash: 
+163 + 167 =  false -- clash: 
+167 + 171 =  false -- clash: 
+171 + 175 =  false -- clash: 
+175 + 179 =  false -- clash: 
+179 + 183 =  false -- clash: 
+183 + 187 =  false -- clash: 
+187 + 191 =  false -- clash: 
+156 + 160 =  false -- clash: 
+160 + 164 =  false -- clash: 
+164 + 168 =  false -- clash: 
+168 + 172 =  false -- clash: 
+172 + 176 =  false -- clash: 
+176 + 180 =  false -- clash: 
+180 + 184 =  false -- clash: 
+184 + 188 =  false -- clash: 
+188 + 192 =  false -- clash: 
+c #variables 512 #constraints 497
+313 + 323 =  false -- clash: 
+314 + 324 =  false -- clash: 
+315 + 325 =  false -- clash: 
+316 + 326 =  false -- clash: 
+317 + 327 =  false -- clash: 
+318 + 328 =  false -- clash: 
+319 + 329 =  false -- clash: 
+320 + 330 =  false -- clash: 
+321 + 331 =  false -- clash: 
+322 + 332 =  false -- clash: 
+353 + 363 =  false -- clash: 
+354 + 364 =  false -- clash: 
+355 + 365 =  false -- clash: 
+356 + 366 =  false -- clash: 
+357 + 367 =  false -- clash: 
+358 + 368 =  false -- clash: 
+359 + 369 =  false -- clash: 
+360 + 370 =  false -- clash: 
+361 + 371 =  false -- clash: 
+362 + 372 =  false -- clash: 
+413 + 433 =  false -- clash: 
+414 + 434 =  false -- clash: 
+415 + 435 =  false -- clash: 
+416 + 436 =  false -- clash: 
+417 + 437 =  false -- clash: 
+418 + 438 =  false -- clash: 
+419 + 439 =  false -- clash: 
+420 + 440 =  false -- clash: 
+421 + 441 =  false -- clash: 
+422 + 442 =  false -- clash: 
+423 + 433 =  false -- clash: 
+424 + 434 =  false -- clash: 
+425 + 435 =  false -- clash: 
+426 + 436 =  false -- clash: 
+427 + 437 =  false -- clash: 
+428 + 438 =  false -- clash: 
+429 + 439 =  false -- clash: 
+430 + 440 =  false -- clash: 
+431 + 441 =  false -- clash: 
+432 + 442 =  false -- clash: 
+443 + 453 =  false -- clash: 
+444 + 454 =  false -- clash: 
+445 + 455 =  false -- clash: 
+446 + 456 =  false -- clash: 
+447 + 457 =  false -- clash: 
+448 + 458 =  false -- clash: 
+449 + 459 =  false -- clash: 
+450 + 460 =  false -- clash: 
+451 + 461 =  false -- clash: 
+452 + 462 =  false -- clash: 
+483 + 503 =  false -- clash: 
+484 + 504 =  false -- clash: 
+485 + 505 =  false -- clash: 
+486 + 506 =  false -- clash: 
+487 + 507 =  false -- clash: 
+488 + 508 =  false -- clash: 
+489 + 509 =  false -- clash: 
+490 + 510 =  false -- clash: 
+491 + 511 =  false -- clash: 
+492 + 512 =  false -- clash: 
+493 + 503 =  false -- clash: 
+494 + 504 =  false -- clash: 
+495 + 505 =  false -- clash: 
+496 + 506 =  false -- clash: 
+497 + 507 =  false -- clash: 
+498 + 508 =  false -- clash: 
+499 + 509 =  false -- clash: 
+500 + 510 =  false -- clash: 
+501 + 511 =  false -- clash: 
+502 + 512 =  false -- clash: 
+c #Conflicts:       1000 | #Constraints:       2885
+c #Conflicts:       2000 | #Constraints:       4951
+c INPROCESSING
+c GARBAGE COLLECT
+c [g 0] truth-find prop checks  : 64K
+c [g 0] -> of which prop        :    37 %
+c [g 0] -> of which confl       :  0.24 %
+c [g 0] elim called             : 6588
+c [g 0] ---> which lead to prop :    74 %
+c [g 0] ---> which lead to confl:  0.62 %
+c [g 0] size: 330   x 430  
+313 + 323 =  false -- clash: 
+314 + 324 =  false -- clash: 
+315 + 325 =  false -- clash: 
+316 + 326 =  false -- clash: 
+317 + 327 =  false -- clash: 
+318 + 328 =  false -- clash: 
+319 + 329 =  false -- clash: 
+320 + 330 =  false -- clash: 
+321 + 331 =  false -- clash: 
+322 + 332 =  false -- clash: 
+353 + 363 =  false -- clash: 
+354 + 364 =  false -- clash: 
+355 + 365 =  false -- clash: 
+356 + 366 =  false -- clash: 
+357 + 367 =  false -- clash: 
+358 + 368 =  false -- clash: 
+359 + 369 =  false -- clash: 
+360 + 370 =  false -- clash: 
+361 + 371 =  false -- clash: 
+362 + 372 =  false -- clash: 
+413 + 433 =  false -- clash: 
+414 + 434 =  false -- clash: 
+415 + 435 =  false -- clash: 
+416 + 436 =  false -- clash: 
+417 + 437 =  false -- clash: 
+418 + 438 =  false -- clash: 
+419 + 439 =  false -- clash: 
+420 + 440 =  false -- clash: 
+421 + 441 =  false -- clash: 
+422 + 442 =  false -- clash: 
+423 + 433 =  false -- clash: 
+424 + 434 =  false -- clash: 
+425 + 435 =  false -- clash: 
+426 + 436 =  false -- clash: 
+427 + 437 =  false -- clash: 
+428 + 438 =  false -- clash: 
+429 + 439 =  false -- clash: 
+430 + 440 =  false -- clash: 
+431 + 441 =  false -- clash: 
+432 + 442 =  false -- clash: 
+443 + 453 =  false -- clash: 
+444 + 454 =  false -- clash: 
+445 + 455 =  false -- clash: 
+446 + 456 =  false -- clash: 
+447 + 457 =  false -- clash: 
+448 + 458 =  false -- clash: 
+449 + 459 =  false -- clash: 
+450 + 460 =  false -- clash: 
+451 + 461 =  false -- clash: 
+452 + 462 =  false -- clash: 
+483 + 503 =  false -- clash: 
+484 + 504 =  false -- clash: 
+485 + 505 =  false -- clash: 
+486 + 506 =  false -- clash: 
+487 + 507 =  false -- clash: 
+488 + 508 =  false -- clash: 
+489 + 509 =  false -- clash: 
+490 + 510 =  false -- clash: 
+491 + 511 =  false -- clash: 
+492 + 512 =  false -- clash: 
+493 + 503 =  false -- clash: 
+494 + 504 =  false -- clash: 
+495 + 505 =  false -- clash: 
+496 + 506 =  false -- clash: 
+497 + 507 =  false -- clash: 
+498 + 508 =  false -- clash: 
+499 + 509 =  false -- clash: 
+500 + 510 =  false -- clash: 
+501 + 511 =  false -- clash: 
+502 + 512 =  false -- clash: 
+c #Conflicts:       3000 | #Constraints:       4479
+c #Conflicts:       4000 | #Constraints:       6191
+c INPROCESSING
+c GARBAGE COLLECT
+c [g 0] truth-find prop checks  : 64K
+c [g 0] -> of which prop        :    11 %
+c [g 0] -> of which confl       : 0.047 %
+c [g 0] elim called             : 9188
+c [g 0] ---> which lead to prop :    25 %
+c [g 0] ---> which lead to confl:  0.11 %
+c [g 0] size: 330   x 430  
+313 + 323 =  false -- clash: 
+314 + 324 =  false -- clash: 
+315 + 325 =  false -- clash: 
+316 + 326 =  false -- clash: 
+317 + 327 =  false -- clash: 
+318 + 328 =  false -- clash: 
+319 + 329 =  false -- clash: 
+320 + 330 =  false -- clash: 
+321 + 331 =  false -- clash: 
+322 + 332 =  false -- clash: 
+353 + 363 =  false -- clash: 
+354 + 364 =  false -- clash: 
+355 + 365 =  false -- clash: 
+356 + 366 =  false -- clash: 
+357 + 367 =  false -- clash: 
+358 + 368 =  false -- clash: 
+359 + 369 =  false -- clash: 
+360 + 370 =  false -- clash: 
+361 + 371 =  false -- clash: 
+362 + 372 =  false -- clash: 
+413 + 433 =  false -- clash: 
+414 + 434 =  false -- clash: 
+415 + 435 =  false -- clash: 
+416 + 436 =  false -- clash: 
+417 + 437 =  false -- clash: 
+418 + 438 =  false -- clash: 
+419 + 439 =  false -- clash: 
+420 + 440 =  false -- clash: 
+421 + 441 =  false -- clash: 
+422 + 442 =  false -- clash: 
+423 + 433 =  false -- clash: 
+424 + 434 =  false -- clash: 
+425 + 435 =  false -- clash: 
+426 + 436 =  false -- clash: 
+427 + 437 =  false -- clash: 
+428 + 438 =  false -- clash: 
+429 + 439 =  false -- clash: 
+430 + 440 =  false -- clash: 
+431 + 441 =  false -- clash: 
+432 + 442 =  false -- clash: 
+443 + 453 =  false -- clash: 
+444 + 454 =  false -- clash: 
+445 + 455 =  false -- clash: 
+446 + 456 =  false -- clash: 
+447 + 457 =  false -- clash: 
+448 + 458 =  false -- clash: 
+449 + 459 =  false -- clash: 
+450 + 460 =  false -- clash: 
+451 + 461 =  false -- clash: 
+452 + 462 =  false -- clash: 
+483 + 503 =  false -- clash: 
+484 + 504 =  false -- clash: 
+485 + 505 =  false -- clash: 
+486 + 506 =  false -- clash: 
+487 + 507 =  false -- clash: 
+488 + 508 =  false -- clash: 
+489 + 509 =  false -- clash: 
+490 + 510 =  false -- clash: 
+491 + 511 =  false -- clash: 
+492 + 512 =  false -- clash: 
+493 + 503 =  false -- clash: 
+494 + 504 =  false -- clash: 
+495 + 505 =  false -- clash: 
+496 + 506 =  false -- clash: 
+497 + 507 =  false -- clash: 
+498 + 508 =  false -- clash: 
+499 + 509 =  false -- clash: 
+500 + 510 =  false -- clash: 
+501 + 511 =  false -- clash: 
+502 + 512 =  false -- clash: 
+c #Conflicts:       5000 | #Constraints:       4615
+c #Conflicts:       6000 | #Constraints:       6220
+c #Conflicts:       7000 | #Constraints:       7828
+c INPROCESSING
+c GARBAGE COLLECT
+c [g 0] truth-find prop checks  : 62K
+c [g 0] -> of which prop        :   5.7 %
+c [g 0] -> of which confl       : 0.021 %
+c [g 0] elim called             : 9529
+c [g 0] ---> which lead to prop :    11 %
+c [g 0] ---> which lead to confl:  0.16 %
+c [g 0] size: 330   x 430  
+313 + 323 =  false -- clash: 
+314 + 324 =  false -- clash: 
+315 + 325 =  false -- clash: 
+316 + 326 =  false -- clash: 
+317 + 327 =  false -- clash: 
+318 + 328 =  false -- clash: 
+319 + 329 =  false -- clash: 
+320 + 330 =  false -- clash: 
+321 + 331 =  false -- clash: 
+322 + 332 =  false -- clash: 
+353 + 363 =  false -- clash: 
+354 + 364 =  false -- clash: 
+355 + 365 =  false -- clash: 
+356 + 366 =  false -- clash: 
+357 + 367 =  false -- clash: 
+358 + 368 =  false -- clash: 
+359 + 369 =  false -- clash: 
+360 + 370 =  false -- clash: 
+361 + 371 =  false -- clash: 
+362 + 372 =  false -- clash: 
+413 + 433 =  false -- clash: 
+414 + 434 =  false -- clash: 
+415 + 435 =  false -- clash: 
+416 + 436 =  false -- clash: 
+417 + 437 =  false -- clash: 
+418 + 438 =  false -- clash: 
+419 + 439 =  false -- clash: 
+420 + 440 =  false -- clash: 
+421 + 441 =  false -- clash: 
+422 + 442 =  false -- clash: 
+423 + 433 =  false -- clash: 
+424 + 434 =  false -- clash: 
+425 + 435 =  false -- clash: 
+426 + 436 =  false -- clash: 
+427 + 437 =  false -- clash: 
+428 + 438 =  false -- clash: 
+429 + 439 =  false -- clash: 
+430 + 440 =  false -- clash: 
+431 + 441 =  false -- clash: 
+432 + 442 =  false -- clash: 
+443 + 453 =  false -- clash: 
+444 + 454 =  false -- clash: 
+445 + 455 =  false -- clash: 
+446 + 456 =  false -- clash: 
+447 + 457 =  false -- clash: 
+448 + 458 =  false -- clash: 
+449 + 459 =  false -- clash: 
+450 + 460 =  false -- clash: 
+451 + 461 =  false -- clash: 
+452 + 462 =  false -- clash: 
+483 + 503 =  false -- clash: 
+484 + 504 =  false -- clash: 
+485 + 505 =  false -- clash: 
+486 + 506 =  false -- clash: 
+487 + 507 =  false -- clash: 
+488 + 508 =  false -- clash: 
+489 + 509 =  false -- clash: 
+490 + 510 =  false -- clash: 
+491 + 511 =  false -- clash: 
+492 + 512 =  false -- clash: 
+493 + 503 =  false -- clash: 
+494 + 504 =  false -- clash: 
+495 + 505 =  false -- clash: 
+496 + 506 =  false -- clash: 
+497 + 507 =  false -- clash: 
+498 + 508 =  false -- clash: 
+499 + 509 =  false -- clash: 
+500 + 510 =  false -- clash: 
+501 + 511 =  false -- clash: 
+502 + 512 =  false -- clash: 
+c #Conflicts:       8000 | #Constraints:       5372
+c #Conflicts:       9000 | #Constraints:       6955
+c #Conflicts:      10000 | #Constraints:       8517
+c #Conflicts:      11000 | #Constraints:      10086
+c INPROCESSING
+c GARBAGE COLLECT
+c [g 0] truth-find prop checks  : 65K
+c [g 0] -> of which prop        :   3.7 %
+c [g 0] -> of which confl       : 0.018 %
+c [g 0] elim called             : 7292
+c [g 0] ---> which lead to prop :   7.3 %
+c [g 0] ---> which lead to confl: 0.027 %
+c [g 0] size: 330   x 430  
+313 + 323 =  false -- clash: 
+314 + 324 =  false -- clash: 
+315 + 325 =  false -- clash: 
+316 + 326 =  false -- clash: 
+317 + 327 =  false -- clash: 
+318 + 328 =  false -- clash: 
+319 + 329 =  false -- clash: 
+320 + 330 =  false -- clash: 
+321 + 331 =  false -- clash: 
+322 + 332 =  false -- clash: 
+353 + 363 =  false -- clash: 
+354 + 364 =  false -- clash: 
+355 + 365 =  false -- clash: 
+356 + 366 =  false -- clash: 
+357 + 367 =  false -- clash: 
+358 + 368 =  false -- clash: 
+359 + 369 =  false -- clash: 
+360 + 370 =  false -- clash: 
+361 + 371 =  false -- clash: 
+362 + 372 =  false -- clash: 
+413 + 433 =  false -- clash: 
+414 + 434 =  false -- clash: 
+415 + 435 =  false -- clash: 
+416 + 436 =  false -- clash: 
+417 + 437 =  false -- clash: 
+418 + 438 =  false -- clash: 
+419 + 439 =  false -- clash: 
+420 + 440 =  false -- clash: 
+421 + 441 =  false -- clash: 
+422 + 442 =  false -- clash: 
+423 + 433 =  false -- clash: 
+424 + 434 =  false -- clash: 
+425 + 435 =  false -- clash: 
+426 + 436 =  false -- clash: 
+427 + 437 =  false -- clash: 
+428 + 438 =  false -- clash: 
+429 + 439 =  false -- clash: 
+430 + 440 =  false -- clash: 
+431 + 441 =  false -- clash: 
+432 + 442 =  false -- clash: 
+443 + 453 =  false -- clash: 
+444 + 454 =  false -- clash: 
+445 + 455 =  false -- clash: 
+446 + 456 =  false -- clash: 
+447 + 457 =  false -- clash: 
+448 + 458 =  false -- clash: 
+449 + 459 =  false -- clash: 
+450 + 460 =  false -- clash: 
+451 + 461 =  false -- clash: 
+452 + 462 =  false -- clash: 
+483 + 503 =  false -- clash: 
+484 + 504 =  false -- clash: 
+485 + 505 =  false -- clash: 
+486 + 506 =  false -- clash: 
+487 + 507 =  false -- clash: 
+488 + 508 =  false -- clash: 
+489 + 509 =  false -- clash: 
+490 + 510 =  false -- clash: 
+491 + 511 =  false -- clash: 
+492 + 512 =  false -- clash: 
+493 + 503 =  false -- clash: 
+494 + 504 =  false -- clash: 
+495 + 505 =  false -- clash: 
+496 + 506 =  false -- clash: 
+497 + 507 =  false -- clash: 
+498 + 508 =  false -- clash: 
+499 + 509 =  false -- clash: 
+500 + 510 =  false -- clash: 
+501 + 511 =  false -- clash: 
+502 + 512 =  false -- clash: 

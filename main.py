@@ -514,7 +514,9 @@ def learningConstraintGraphSearch(n,d,state='GHZ'):
     wholeGraph.generateBicoloredCompleteGraph(n,d)
     for e in wholeGraph.edges:
         allocateVar(LearnedGraphConstraints.varMap, getEdgeString(e))
+    trial = 0
     while True:
+        trial += 1 
         makeGraphConstraintFile(wholeGraph)
         flag, graph = solveGraphConstraintFile(wholeGraph)
         if not flag:
@@ -526,7 +528,9 @@ def learningConstraintGraphSearch(n,d,state='GHZ'):
             print("graph found!")
             print(graph.edges)
             break
-
+        print("trials: %d" % trial)
+        #    break
+    print("trials: %d" % trial)
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     #graph.generateRandomGraph(20,0.001,3)
