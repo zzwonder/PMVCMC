@@ -3,12 +3,6 @@ import os
 import math
 import argparse
 
-class LearnedGraphConstraints:
-    constraints = []
-    varMap = {}
-    count = 0
-    mode = "CONFLICT"
-
 class Graph:
     def __init__(self):
         self.n = 0
@@ -38,7 +32,7 @@ class Graph:
                     continue
                 self.edges.append([int(split[0]), int(split[1]), int(split[2]), int(split[3])])
 
-    def generateRandomGraph(self, n, p, d):
+    def generateRandomGraph(self, n, d, p):
         for v in range(1,n+1):
             for u in range(v+1, n+1):
                 for cv in range(1,d+1):
@@ -69,6 +63,14 @@ class Graph:
                 for c in range(1, d + 1):
                         self.edges.append([v,u,c,c])
         self.init(n,n*(n-1)/2*d, d)
+
+    def generateCycle(self, n):
+        for v in range(n):
+            if v % 2 == 0:
+                self.edges.append([v+1 , (v+1) % n + 1, 1, 1])
+            else:
+                self.edges.append([v+1 , (v+1) % n + 1, 2, 2])
+        self.init(n,n,2)
 
 def allocateVar(mapping, string):
     if string in mapping:
@@ -175,7 +177,6 @@ def generatePMFormula(graph, formulaPath, varMap, state):
             f.write()
     return len(varMap)
 
-
 def generateNEPMFormula(graph, formulaPath, varMap, state):
     for i in range(1, graph.n + 1):
         allocateVar(varMap,getTutteVariableString(i))
@@ -237,6 +238,7 @@ def generateNEPMFormula(graph, formulaPath, varMap, state):
             for i in range(1,graph.n+1):
                 f.write("%d " % varMap[getVCString(i,1)])
             f.write('\n')
+
 
 def PBEncoding(formulaPath, varMap, constraintList):
     with open(formulaPath) as f:
@@ -316,10 +318,10 @@ def readPMfromRes(split, graph):
     # split is the split of vline
     pm = set()
     pmVars = []
-    for i in range(len(graph.edges)):
+    for i in range(min(len(graph.edges), len(split))):
         if split[i][0] == 'x':
-            edgeStr = getEdgeString(graph.edges[i]) 
-            pm.add(edgeStr)
+            edgeStr = getEdgeString(graph.edges[i])
+            pm.add(edgeStr) 
     #todo: make the edges as unique id. Then use set inclusion for graphs to see whether the PM is there.
     print('learned PM: '+repr(pm))
     return pm
@@ -355,47 +357,17 @@ def readLinpbRes(resFile,problemType,graph, varMap): # problemType = {'PM','NEPM
                 #todo: retract the PM and add it to the forbidden list
                 if problemType == "PM":
                     pm = readPMfromRes(split[1:],graph)
-                    if LearnedGraphConstraints.mode == "DPLL":
-                        LearnedGraphConstraints.constraints.append(frozenset(pm)) 
-                    elif LearnedGraphConstraints.mode == "CONFLICT":
-                        print("illegal PM")
-                        print(pm)
-                        string = ""
-                        for s in pm:
-                            string += "-1 x%d " % LearnedGraphConstraints.varMap[s]
-                        string += ">= %d ;\n" % (1-len(pm)) 
-                        LearnedGraphConstraints.constraints.append(string)                                 
+                    print("illegal PM")
+                    print(pm)
                 if problemType == "NEPM": 
-                    if LearnedGraphConstraints.mode == "CONFLICT":
-                        eoList = {}
-                       
-                        for i in range(1,graph.n+1):
-                            eoList[i] = []
-                        LearnedGraphConstraints.count += 1 
-                        coloring = readColoringfromRes(split[1:], graph, varMap)
-                        print("no PM for coloring ")
-                        print(coloring)
-                        for i in range(1,graph.n +1):
-                            for j in range(i+1, graph.n+1):
-                                edgeVar = allocateVar( LearnedGraphConstraints.varMap, getLearnedEdgeString([i,j,coloring[i],coloring[j]], LearnedGraphConstraints.count))
-                                eoList[i].append(edgeVar)
-                                eoList[j].append(edgeVar)
-                                LearnedGraphConstraints.constraints.append("-1 x%d +1 x%d >= 0\n" % (edgeVar, LearnedGraphConstraints.varMap[getEdgeString([i,j, coloring[i],coloring[j]])]))
-                        for i in range(1, graph.n+1):
-                            string = ""
-                            for edgeVar in eoList[i]:
-                                string += "+1 x%d " % edgeVar 
-                            string += " = 1 ;\n"
-                            LearnedGraphConstraints.constraints.append(string)
+                    eoList = {}
+                    for i in range(1,graph.n+1):
+                        eoList[i] = []
+                    coloring = readColoringfromRes(split[1:], graph, varMap)
+                    print("no PM for coloring ")
+                    print(coloring)
         return False
         
-def checkLearnedConflicts(graph, learnedConstraints):
-    edgeSet = set([getEdgeString(e) for e in graph.edges])
-    for s in learnedConstraints:
-        if s.issubset(edgeSet): 
-            return False
-    return True
-
 def checkPM(graph, state, PMFormulaPath="pmformula.txt", PBXORPMFormulaPath="pbxorpmformula.txt"): # if the extended graph with unassigned edges are false has no proof of non-existence of PM, return true. Otherwise return true
     varMap = {}
  #   if not checkLearnedConflicts(graph,learnedConstraints): return False
@@ -413,134 +385,32 @@ def checkPM(graph, state, PMFormulaPath="pmformula.txt", PBXORPMFormulaPath="pbx
     # todo: call libpb. if SAT, return False. otherwise return true
     return readLinpbRes("pmres.txt", "PM", graph, varMap)    
 
-def variableSelection(varList):
-    index = random.sample(range(len(varList)),1)[0]
-    v = varList[index]
-    varList.pop(index)
-    #print('selected edge %d ' % v)
-    return v, True
+def makeStateConstraints(stateInputStyle, state):
+    pass
 
-def stackToGraph(wholeGraph, n, d, edgeMap, variableStack, variablesLeft, extender): # if extender is true, all unassigned edges are assumed to present. otherwise all unassigned edges are absent
-    graph = Graph()
-    for s in variableStack:
-        if s[1]:
-            e = wholeGraph.edges[s[0]-1]
-            graph.edges.append(e)
-    if extender:
-        for v in variablesLeft:
-            e = wholeGraph.edges[v-1]
-            graph.edges.append(e)
-    graph.init(n,len(graph.edges),d)
-    return graph
-
-def DPLLGraphSearch(n,d,state='GHZ'):
-    # assign edges to variable set
-    wholeGraph = Graph()
-    wholeGraph.generateCompleteGraph(n,d)
-    edgeMap = {}
-    for e in wholeGraph.edges:
-        allocateVar(edgeMap, getPMEdgeString(e))
-    variableStack = []
-    variablesLeft = list(range(1,len(edgeMap) + 1))
-    count = 0
-    prunedStr = ""
-    learnedConstraintsPM = set()
-    learnedConstraintsNEPM = set()
-    while True:
-        count += 1
-        print("count = %d\n" % count)
-        #print(variablesLeft)
-        #print(variableStack)
-        nepmGraph = stackToGraph(wholeGraph, n, d, edgeMap, variableStack, variablesLeft, True)
-        pmGraph = stackToGraph(wholeGraph, n,d,edgeMap,variableStack,variablesLeft,False)
-        pmFlag = checkPM(pmGraph, state, learnedConstraintsPM)
-        if not pmFlag: nepmFlag = False
-        else:
-            nepmFlag = checkNEPM(nepmGraph, state, learnedConstraintsNEPM)
-        print("nepmFlag = %s pmFlag = %s" % (nepmFlag,pmFlag))
-        if nepmFlag == True and pmFlag == True:
-            if len(variablesLeft) == 0:
-                print("Graph found!")
-                print(nepmGraph.edges)
-                print(pmGraph.edges)
-                break
-            else:
-                v, value = variableSelection(variablesLeft)
-                variableStack.append([v, value, False])
-        else:
-            prunedStr += "+%d " % len(variablesLeft)
-            print("pruned %s all edges %d" % (prunedStr, len(edgeMap)))
-            while len(variableStack)>0 and variableStack[-1][2] == True:
-                v = variableStack.pop(-1)[0]
-                variablesLeft.append(v)
-            if len(variableStack) == 0:
-                print("Impossible")
-                break
-            else:
-                variableStack[-1][2] = True
-                variableStack[-1][1] = not variableStack[-1][1]
-
-def makeGraphConstraintFile(wholeGraph, graphFilePath = "graphConstraint.pb"):
-    with open(graphFilePath,'w+') as f:
-        f.write("* #variable= %d #constraint= %d\n" % (2 * len(wholeGraph.edges), len(LearnedGraphConstraints.constraints)))
-        for string in LearnedGraphConstraints.constraints:
-            f.write(string)
-
-def solveGraphConstraintFile(wholeGraph, graphFilePath = "graphConstraint.pb"):
-    resPath = "graphres.txt"
-    cmd = '../../linpb/build/linpb --print-sol=1 %s > %s' % (graphFilePath, resPath)
-    os.system(cmd)
-    graph = Graph()
-    with open(resPath,'r') as f:
-        lines = f.readlines()
-        for line in lines:
-            split = line.split()
-            if len(split) == 0: continue
-            if split[0] == 's':
-                if split[1] == 'UNSATISFIABLE': return False, None
-                elif split[1] == 'SATISFIABLE':
-                    pass
-            if split[0] == 'v':
-                for i in range(1, min(len(split), len(wholeGraph.edges)+1)):
-                    if split[i][0] == 'x':
-                        graph.edges.append(wholeGraph.edges[i-1])
-                        print("add edge "+repr(wholeGraph.edges[i-1]))
-                graph.init(wholeGraph.n, len(graph.edges), wholeGraph.d)
-                return True, graph
-
-def learningConstraintGraphSearch(n,d,state='GHZ'):
-    wholeGraph = Graph()
-    #wholeGraph.generateCompleteGraph(n,d)
-    wholeGraph.generateBicoloredCompleteGraph(n,d)
-    for e in wholeGraph.edges:
-        allocateVar(LearnedGraphConstraints.varMap, getEdgeString(e))
-    trial = 0
-    while True:
-        trial += 1 
-        makeGraphConstraintFile(wholeGraph)
-        flag, graph = solveGraphConstraintFile(wholeGraph)
-        if not flag:
-            print("impossible!")
-            break
-        pmFlag = checkPM(graph, state)
-        nepmFlag = checkNEPM(graph, state)
-        if pmFlag == True and nepmFlag == True:
-            print("graph found!")
-            print(graph.edges)
-            break
-        print("trials: %d" % trial)
-        #    break
-    print("trials: %d" % trial)
-# Press the green button in the gutter to run the script.
+def identification(graph, stateInputStyle='name', state='GHZ'):
+    # stateInputStyle is in {'name', 'enumerate', 'constraint'}
+    # for 'name', state is in {'GHZ','W'}
+    # for 'enumerate', state is the file name of the list of legal states, e.g., 1,1,1,1 2,2,2,2 3,3,3,3
+    # for 'constraint', state is the constraint that defines the legal states, e.g., ae 1 2 3 4 (GHZ state)
+    stateConstraints = makeStateConstraints(stateInputStyle, state)
+    pmFlag = checkPM(graph, state)
+    if pmFlag == False: return False
+    else: 
+        print('no illegal PMs')
+    print('checking for absense of legal colorings')
+    nepmFlag = checkNEPM(graph, state)
+    return nepmFlag 
+ 
 if __name__ == '__main__':
-    #graph.generateRandomGraph(20,0.001,3)
-    #graph.generateCompleteBipartiteGraph(20,22,1)
-    #graph.generateCompleteGraph(6,3)
-    #generateGraphDiscoveryFormula(graph,"pmformula.txt","nepmformula.txt","pbxor.txt")
     parser = argparse.ArgumentParser()
-    parser.add_argument('n',type=int,help='number of vertices')
-    parser.add_argument('d', type=int, help='number of edges')
-    parser.add_argument('state',type=str,help='GHZ,W')
+    parser.add_argument('--state',type=str, help='GHZ,W')
+    parser.add_argument('--graphFile',type=str,help='the graph file')
     args = parser.parse_args()
-    #DPLLGraphSearch(args.n,args.d,args.state)
-    learningConstraintGraphSearch(args.n,args.d)
+    graph = Graph()
+    #graph.readGraph(graphFile)
+    for n in range(10,20,2):
+        graph.generateCycle(n)
+        #graph.generateRandomGraph(n,2, 1/math.sqrt(n))
+        flag = identification(graph, stateInputStyle='name', state='GHZ')
+        print("n = "+ repr(n) + " result = " + repr(flag))
